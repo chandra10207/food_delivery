@@ -8,9 +8,10 @@ urlpatterns = [
     # path('$/', views.restaurants, name='restaurants')
     # path('restaurants/', ListSongsView.as_view(), name="songs-all")
 
-    # path('', views.index, name='index'),
+    path('', views.index, name='index'),
     # path('food/', views.individual_restaurant, name='individual_restaurant'),
     # path('restaurants/', views.RestaurantList.as_view(), name="restaurant-all"), #class based view
+    path('foods/', views.FoodsList.as_view(), name="food-all"), #class based view
     # path('restaurants/', views.list_restaurant), #function based view
 
     # path('restaurant/<int:pk>', GetRestaurantDetail.as_view(), name="restaurant-detail")

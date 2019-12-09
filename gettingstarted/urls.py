@@ -25,5 +25,5 @@ urlpatterns = [
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
     # url(r'^api-auth/', include('rest_framework.urls')),
-    re_path('api/(?P<version>(v1|v2))/food/', include('food.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('food.urls')),
 ]

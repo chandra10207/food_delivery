@@ -2,6 +2,11 @@ from django.db import models
 from restaurant.models import Restaurant
 from django.contrib.auth.models import User
 
+from django import forms
+
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    image = forms.ImageField()
 
 class Food(models.Model):
     name = models.CharField(max_length=255)
