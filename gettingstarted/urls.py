@@ -1,10 +1,14 @@
 from django.urls import path, include, re_path
-
 from django.contrib import admin
+from django.conf.urls import url
+from food_delivery import views
+
+
 
 admin.autodiscover()
 
 import hello.views
+import food_delivery.views
 
 # To add a new path, first import the app:
 # import blog
@@ -22,8 +26,15 @@ admin.site.index_title = "Welcome to Food Delivery"
 
 urlpatterns = [
     path("", hello.views.index, name="index"),
+    # path("register/", food_delivery.views.register, name="register"),
+    path('food_delivery/', include('food_delivery.urls'), name="register"),
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
     # url(r'^api-auth/', include('rest_framework.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('food.urls')),
+    url(r'^$',views.index,name='index'),
+    url(r'^special/',views.special,name='special'),
+    # url(r'^food_delivery/',include('food_delivery.urls')),
+    re_path("food_delivery/", include('food_delivery.urls')),
+    url(r'^logout/$', views.user_logout, name='logout'),
 ]
