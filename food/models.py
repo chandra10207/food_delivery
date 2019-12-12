@@ -25,6 +25,7 @@ class Addon(models.Model):
         return self.name
 
 
+
 class Food(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, max_length=255)

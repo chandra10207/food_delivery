@@ -1,6 +1,6 @@
 from django.urls import path, include, re_path
 from django.contrib import admin
-from django.conf.urls import url
+from django.conf.urls import url, include
 from food_delivery import views
 
 
@@ -30,7 +30,7 @@ urlpatterns = [
     path('food_delivery/', include('food_delivery.urls'), name="register"),
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
-    # url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^api-auth/', include('rest_framework.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('food.urls')),
     # url(r'^$',views.index,name='index'),
     # url(r'^special/',views.special,name='special'),
