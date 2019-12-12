@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "food",
     "food_delivery",
     "restaurant",
-    "order",
     "rest_framework"
 
 ]

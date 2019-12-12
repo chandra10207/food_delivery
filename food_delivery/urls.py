@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.urls import path
 from food_delivery import views
 # SET THE NAMESPACE!
-app_name = 'food_delivery'
+# app_name = 'food_delivery'
 # Be careful setting the name to just /login use userlogin instead!
 urlpatterns=[
    path('', views.index, name="fooddelivery-index"),
@@ -10,5 +10,5 @@ urlpatterns=[
 
 
     url(r'^register/$',views.register,name='register'),
-    # url(r'^user_login/$',views.user_login,name='user_login'),
+    url(r'^user_login/$',views.user_login,name='user_login'),
 ]

@@ -11,12 +11,15 @@ class Restaurant(models.Model):
     website = models.URLField(max_length=200, null=True, blank=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    banner_image = models.ImageField(upload_to='staticfiles/restaurant/images/',
-                                     default='staticfiles/restaurant/images/None/no-img.jpg')
-    logo = models.ImageField(upload_to='staticfiles/restaurant/images/',
-                             default='staticfiles/restaurant/images/None/no-img.jpg')
+    banner_image = models.ImageField(upload_to='restaurant/images/',
+                                     default='restaurant/images/None/no-img.jpg')
+    logo = models.ImageField(upload_to='restaurant/images/',
+                             default='restaurant/images/None/no-img.jpg')
     owner = models.ForeignKey('auth.User', related_name='restaurant_owner', on_delete=models.CASCADE)
-    highlighted = models.TextField()
+    # highlighted = models.TextField()
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         ordering = ['created_on']
