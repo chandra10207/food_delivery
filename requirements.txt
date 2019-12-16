@@ -4,3 +4,5 @@ gunicorn
 django-heroku
 requests
 Pillow
+django-rest-auth
+django-allauth

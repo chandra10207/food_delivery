@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from food_delivery import views
 
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 admin.autodiscover()
@@ -32,9 +34,13 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('food.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('api.urls')),
+    # path('api/v1/', include('api.urls')),
     # url(r'^$',views.index,name='index'),
     # url(r'^special/',views.special,name='special'),
     # url(r'^food_delivery/',include('food_delivery.urls')),
-    re_path("food_delivery/", include('food_delivery.urls')),
+    # re_path("food_delivery/", include('food_delivery.urls')),
     url(r'^logout/$', views.user_logout, name='logout'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

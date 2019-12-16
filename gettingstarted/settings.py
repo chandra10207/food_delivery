@@ -44,11 +44,23 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "hello",
     "food",
+    "api",
     "food_delivery",
     "restaurant",
-    "rest_framework"
+    "rest_framework",
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 
 ]
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SITE_ID = 1
+
+# AUTH_USER_MODEL = 'api.CustomUser'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
