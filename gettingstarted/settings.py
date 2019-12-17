@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "hello",
     "food",
     "api",
+    "product",
     "food_delivery",
     "restaurant",
     "rest_framework",

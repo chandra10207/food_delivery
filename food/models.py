@@ -5,10 +5,6 @@ from django.contrib.auth.models import User
 
 from django import forms
 
-# class ImageUploadForm(forms.Form):
-#     """Image upload form."""
-#     image = forms.ImageField()
-
 
 class Addon(models.Model):
     name = models.CharField(max_length=255)
@@ -35,10 +31,10 @@ class Food(models.Model):
     regular_price = models.DecimalField(max_digits=10, decimal_places=2)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='products/images/', default='products/images/None/no-img.jpg')
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, related_name='foods', on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     # toppings = models.ManyToManyField(Addon, blank=True, through='ToppingAmount', related_name='foods')
-    # addons = models.ManyToManyField(Addon)
+    addons = models.ManyToManyField(Addon)
 
     def __str__(self):
         # return "{} - {}".format(self.name, self.content)
