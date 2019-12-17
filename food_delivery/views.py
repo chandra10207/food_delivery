@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from food_delivery.forms import UserForm, UserProfileInfoForm
+from food_delivery.forms import UserForm, UserProfileInfoForm, RestaurantForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -26,7 +26,8 @@ def register(request):
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileInfoForm(data=request.POST)
-        if user_form.is_valid() and profile_form.is_valid():
+        restaurant_form = RestaurantForm(data=request.POST)
+        if user_form.is_valid() and profile_form.is_valid() and restaurant_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.save()
@@ -37,13 +38,19 @@ def register(request):
                 profile.profile_pic = request.FILES['profile_pic']
             profile.save()
             registered = True
+            restaurant = restaurant_form.save(commit=False)
+            restaurant.owner = user
+            restaurant.save()
+
         else:
-            print(user_form.errors, profile_form.errors)
+            print(user_form.errors, profile_form.errors, restaurant_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileInfoForm()
+        restaurant_form = RestaurantForm()
     return render(request, 'food_delivery/register.html',
                   {'user_form': user_form,
+                   'restaurant_form': restaurant_form,
                    'profile_form': profile_form,
                    'registered': registered})
 

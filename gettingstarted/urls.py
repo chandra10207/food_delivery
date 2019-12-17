@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('food.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('api.urls')),
+    re_path('api/(?P<version>(v1|v2))/', include('restaurant.urls')),
     # path('api/v1/', include('api.urls')),
     # url(r'^$',views.index,name='index'),
     # url(r'^special/',views.special,name='special'),

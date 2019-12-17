@@ -6,12 +6,15 @@
       {% if registered %}
         <h1>Thank you for registering!</h1>
       {% else %}
-        <h1>Register Here</h1>
-        <h3>Just fill out the form.</h3>
+        <h1>Restaurant Registration</h1>
+        <h3>Owner Details</h3>
 <form enctype="multipart/form-data" method="POST">
           {% csrf_token %}
           {{ user_form.as_p }}
           {{ profile_form.as_p }}
+
+        <h3>Restaurant  Details</h3>
+          {{ restaurant_form.as_p }}
           <input type="submit" name="" value="Register">
         </form>
 
