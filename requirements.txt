@@ -6,3 +6,4 @@ requests
 Pillow
 django-rest-auth
 django-allauth
+djangorestframework-api-key-1.4.1

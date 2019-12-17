@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "food_delivery",
     "restaurant",
     "rest_framework",
+  "rest_framework_api_key",
     'rest_framework.authtoken',
     'rest_auth',
     'django.contrib.sites',
@@ -57,6 +58,21 @@ INSTALLED_APPS = [
     'rest_auth.registration',
 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAdminUser',
+    ]
+}
+
+# REST_FRAMEWORK = {
+#     "DEFAULT_PERMISSION_CLASSES": [
+#         "rest_framework_api_key.permissions.HasAPIKey",
+#     ]
+# }
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SITE_ID = 1
