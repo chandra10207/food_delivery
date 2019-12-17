@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "food_delivery",
     "restaurant",
     "rest_framework",
-  "rest_framework_api_key",
+  # "rest_framework_api_key",
     'rest_framework.authtoken',
     'rest_auth',
     'django.contrib.sites',
