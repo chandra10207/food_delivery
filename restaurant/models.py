@@ -11,10 +11,10 @@ class Restaurant(models.Model):
     website = models.URLField(max_length=200, null=True, blank=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    banner_image = models.ImageField(upload_to='restaurant/images/',
-                                     default='restaurant/images/None/no-img.jpg')
-    logo = models.ImageField(upload_to='restaurant/images/',
-                             default='restaurant/images/None/no-img.jpg')
+    # banner_image = models.ImageField(upload_to='restaurant/images/', default='restaurant/images/None/no-img.jpg')
+    # logo = models.ImageField(upload_to='restaurant/images/', default='restaurant/images/None/no-img.jpg')
+    restaurant_banner_image = models.ImageField(upload_to='restaurant/images/',blank=True)
+    restaurant_logo = models.ImageField(upload_to='restaurant/images/',blank=True)
     owner = models.ForeignKey('auth.User', related_name='restaurant_owner', on_delete=models.CASCADE)
     # highlighted = models.TextField()
 

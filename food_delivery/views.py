@@ -30,6 +30,7 @@ def register(request):
         if user_form.is_valid() and profile_form.is_valid() and restaurant_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
+            user.is_staff = True
             user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
@@ -41,13 +42,13 @@ def register(request):
             restaurant = restaurant_form.save(commit=False)
             restaurant.owner = user
 
-            if 'banner_image' in request.FILES:
+            if 'restaurant_banner_image' in request.FILES:
                 print('banner image found it')
-                restaurant.banner_image = request.FILES['banner_image']
+                restaurant.restaurant_banner_image = request.FILES['restaurant_banner_image']
 
-            if 'logo' in request.FILES:
+            if 'restaurant_logo' in request.FILES:
                 print('logo image found it')
-                restaurant.logo = request.FILES['logo']
+                restaurant.restaurant_logo = request.FILES['restaurant_logo']
 
             restaurant.save()
 
