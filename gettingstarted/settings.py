@@ -73,8 +73,8 @@ REST_FRAMEWORK = {
 # }
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 SITE_ID = 1
 
 # AUTH_USER_MODEL = 'api.CustomUser'
