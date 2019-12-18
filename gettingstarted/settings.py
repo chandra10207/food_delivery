@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
 
 ]
@@ -72,8 +73,8 @@ INSTALLED_APPS = [
 # }
 
 REST_AUTH_REGISTER_SERIALIZERS = {
-    'REGISTER_SERIALIZER': 'rest_auth.registration.serializers.RegisterSerializer',
-    # 'REGISTER_SERIALIZER': 'api.serializers.RegisterSerializer',
+    # 'REGISTER_SERIALIZER': 'rest_auth.registration.serializers.RegisterSerializer',
+    'REGISTER_SERIALIZER': 'api.serializers.RegisterSerializer',
     }
 
 # REST_FRAMEWORK = {

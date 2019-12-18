@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import Group
 
 def index(request):
     return render(request, 'food_delivery/index.html')
@@ -31,6 +32,8 @@ def register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.is_staff = True
+            group = Group.objects.get(name='Restaurant')
+            user.groups.add(group)
             user.save()
             profile = profile_form.save(commit=False)
             profile.user = user
