@@ -34,7 +34,7 @@ class Food(models.Model):
     restaurant = models.ForeignKey(Restaurant, related_name='foods', on_delete=models.CASCADE)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     # toppings = models.ManyToManyField(Addon, blank=True, through='ToppingAmount', related_name='foods')
-    addons = models.ManyToManyField(Addon)
+    addons = models.ManyToManyField(Addon , blank=True)
 
     def __str__(self):
         # return "{} - {}".format(self.name, self.content)

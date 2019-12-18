@@ -40,6 +40,15 @@ def register(request):
             registered = True
             restaurant = restaurant_form.save(commit=False)
             restaurant.owner = user
+
+            if 'banner_image' in request.FILES:
+                print('banner image found it')
+                restaurant.banner_image = request.FILES['banner_image']
+
+            if 'logo' in request.FILES:
+                print('logo image found it')
+                restaurant.logo = request.FILES['logo']
+
             restaurant.save()
 
         else:

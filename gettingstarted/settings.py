@@ -73,7 +73,7 @@ INSTALLED_APPS = [
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'rest_auth.registration.serializers.RegisterSerializer',
-    # 'REGISTER_SERIALIZER': 'api.serializers.CustomRestRegisterSerializer',
+    # 'REGISTER_SERIALIZER': 'api.serializers.RegisterSerializer',
     }
 
 # REST_FRAMEWORK = {
