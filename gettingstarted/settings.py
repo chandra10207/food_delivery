@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import django_heroku
-
+from rest_framework import serializers
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -59,12 +59,22 @@ INSTALLED_APPS = [
 
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.IsAdminUser',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         # 'rest_framework.permissions.IsAuthenticated',
+#         'rest_framework.permissions.IsAdminUser',
+#     ]
+# }
+
+# REST_AUTH_SERIALIZERS = {
+#     'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
+#     # 'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
+# }
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'rest_auth.registration.serializers.RegisterSerializer',
+    # 'REGISTER_SERIALIZER': 'api.serializers.CustomRestRegisterSerializer',
+    }
 
 # REST_FRAMEWORK = {
 #     "DEFAULT_PERMISSION_CLASSES": [
@@ -75,6 +85,11 @@ REST_FRAMEWORK = {
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+
 SITE_ID = 1
 
 # AUTH_USER_MODEL = 'api.CustomUser'
