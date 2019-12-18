@@ -7,6 +7,7 @@ from django.db import models
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=42)
+    restaurant_address = models.CharField(max_length=42)
     email = models.EmailField(max_length=75)
     website = models.URLField(max_length=200, null=True, blank=True)
     content = models.TextField()
