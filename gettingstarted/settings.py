@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "rest_framework",
   # "rest_framework_api_key",
     'rest_framework.authtoken',
+    # 'django_extensions',
     'rest_auth',
     'django.contrib.sites',
     'allauth',
@@ -71,11 +72,17 @@ INSTALLED_APPS = [
 #     'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
 #     # 'LOGIN_SERIALIZER': 'path.to.custom.LoginSerializer',
 # }
-
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'api.serializers.LoginSerializer',
+    'TOKEN_SERIALIZER': 'api.serializers.CustomTokenSerializer',
+}
 REST_AUTH_REGISTER_SERIALIZERS = {
+    # 'TOKEN_SERIALIZER': 'api.serializers.CustomTokenSerializer',
     # 'REGISTER_SERIALIZER': 'rest_auth.registration.serializers.RegisterSerializer',
     'REGISTER_SERIALIZER': 'api.serializers.RegisterSerializer',
     }
+
+# For permission
 
 # REST_FRAMEWORK = {
 #     "DEFAULT_PERMISSION_CLASSES": [
@@ -83,17 +90,54 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 #     ]
 # }
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.SessionAuthentication',
+#         # 'rest_framework.authentication.TokenAuthentication',
+#         'rest_framework.authentication.BasicAuthentication',
+#    )
+# }
+
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-
-SITE_ID = 1
+#
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+#
+# SITE_ID = 1
 
 # AUTH_USER_MODEL = 'api.CustomUser'
+
+# AUTHENTICATION_BACKENDS = (
+#     # Needed to login by username in Django admin, regardless of `allauth`
+#     "django.contrib.auth.backends.ModelBackend",
+#
+#     # `allauth` specific authentication methods, such as login by e-mail
+#     "allauth.account.auth_backends.AuthenticationBackend",
+# )
+
+
+REST_SESSION_LOGIN = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'username|email'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+# ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
+
+
+
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

@@ -1,13 +1,25 @@
 from allauth.account.views import confirm_email
 from django.urls import include, path
-from api import views
+from api import views as api_views
+from rest_framework.authtoken import views
+from django.conf.urls import url
+from api.views import CustomObtainAuthToken
+
+
 urlpatterns = [
     # path('users/', include('users.urls')),
-    path('users/', views.UserListView.as_view()),
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    path('users/', api_views.UserListView.as_view()),
+    # path('rest-auth/', include('rest_auth.urls')),
+    # path('rest-auth/registration/', include('rest_auth.registration.urls')),
+   url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    # url(r'^user/$', UserDetailsView.as_view(), name='rest_user_details'),
 
-# url(r'^accounts/', include('allauth.urls')),
+    # path('customer_login/', views.customer_login),
+    # url(r'^api-token-auth/', views.obtain_auth_token, name='auth-token'),
+url(r'^authenticate/', CustomObtainAuthToken.as_view()),
+
+url(r'^accounts/', include('allauth.urls')),
 # url(r'^rest-auth/registration/account-confirm-email/(?P<key>\w+)/$',confirm_email, name='account_confirm_email'),
 # url(r'^rest-auth/', include('rest_auth.urls')),
 # url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
