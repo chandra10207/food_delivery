@@ -17,6 +17,7 @@ from rest_framework import serializers
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
+# breakpoint()
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 MEDIA_DIR = os.path.join(BASE_DIR,'media')
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "product",
     "food_delivery",
     "restaurant",
+    "sales",
     "rest_framework",
   # "rest_framework_api_key",
     'rest_framework.authtoken',

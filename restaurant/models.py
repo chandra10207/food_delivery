@@ -17,6 +17,7 @@ class Restaurant(models.Model):
     restaurant_banner_image = models.ImageField(upload_to='restaurant/images/',blank=True)
     restaurant_logo = models.ImageField(upload_to='restaurant/images/',blank=True)
     owner = models.ForeignKey('auth.User', related_name='restaurant_owner', on_delete=models.CASCADE)
+    follower = models.ManyToManyField('auth.User', blank=True)
     # highlighted = models.TextField()
 
     def __str__(self):
