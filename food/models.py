@@ -40,6 +40,9 @@ class Food(models.Model):
         # return "{} - {}".format(self.name, self.content)
         return self.name
 
+
+
+
 # class FoodAddon(models.Model):
 #     # REGULAR = 1
 #     # DOUBLE = 2

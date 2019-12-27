@@ -1,0 +1,24 @@
+{% extends "admin/index.html" %}
+
+{% block breadcrumbs %}
+    <div style="margin-bottom:30px; padding:10px 40px;" class="row">
+        <div class="col-md-12">
+            <h1> Sales Summary </h1>
+            <hr>
+        </div>
+        <div class="col-sm-4">
+            <canvas id="gender-chart" style="width: 100px !important;"></canvas>
+        </div>
+        <div class="col-sm-4">
+            <canvas id="language-chart" style="width: 100px !important;"></canvas>
+        </div>
+        <div class="col-sm-4">
+            <canvas id="grades-chart" style="width: 100px !important;"></canvas>
+        </div>
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+
+
+

@@ -23,7 +23,7 @@ import food_delivery.views
 
 admin.site.site_header = "Food Delivery Admin"
 admin.site.site_title = "Food Delivery Admin Portal"
-admin.site.index_title = "Welcome to Food Delivery"
+admin.site.index_title = "Available Options"
 
 
 urlpatterns = [

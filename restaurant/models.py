@@ -2,9 +2,9 @@ from django.db import models
 # from address.models import AddressField
 from django import forms
 #
-# class ImageUploadForm(forms.Form):
-#     """Image upload form."""
-#     image = forms.ImageField()
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    image = forms.ImageField()
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=42)
