@@ -31,6 +31,7 @@ urlpatterns = [
     # path("register/", food_delivery.views.register, name="register"),
     path('food_delivery/', include('food_delivery.urls'), name="register"),
     path("db/", hello.views.db, name="db"),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path("admin/", admin.site.urls),
     url(r'^api-auth/', include('rest_framework.urls')),
     re_path('api/(?P<version>(v1|v2))/', include('food.urls')),
