@@ -9,3 +9,4 @@ django-allauth
 #djangorestframework-api-key-1.4.1
 #djangorestframework-jwt
 #httpie
+django-address

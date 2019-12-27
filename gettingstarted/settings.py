@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "hello",
     "food",
+    # "address",
     "api",
     "product",
     "food_delivery",
@@ -62,6 +63,9 @@ INSTALLED_APPS = [
     'rest_auth.registration',
 
 ]
+
+# GOOGLE_API_KEY = 'AIzaSyCXTmnpb48jkPSW_BZxS2_mEM_kjZnewBE'
+
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': [
@@ -156,8 +160,8 @@ ROOT_URLCONF = "gettingstarted.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        # 'DIRS': [TEMPLATE_DIR],
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
+        # 'DIRS': [],
         #  'DIRS': [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {

@@ -11,7 +11,11 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.functions import datetime
+
 from restaurant.models import Restaurant
+from food.models import Food, Addon
+
 
 MALE, FEMALE = range(2)
 GENDER = (
@@ -67,14 +71,44 @@ class Order(models.Model):
     seller_total = models.DecimalField(max_digits=10, decimal_places=2)
     seller_id = models.ForeignKey(Restaurant, related_name='restaurant', on_delete=models.CASCADE)
     order_status =  models.CharField(max_length=40, choices=ORDER_STATUS, default='processing')
+    created_on = models.DateTimeField(auto_now_add=True)
+    completed_on = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.id
+        # return self.user_id.first_name
+        return "{} - {}".format(str(self.id), self.user_id.first_name)
 
     class Meta:
         verbose_name = ('Order')
 
 
-# class OrderItem(models.Model):
-#     order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
+class OrderItem(models.Model):
+    order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
+    food_id = models.ForeignKey(Food, related_name='food', on_delete=models.CASCADE)
+    order_item_name = models.CharField('Item Name', max_length=50)
+    quantity = models.PositiveSmallIntegerField('Quantiy', default=1)
+    item_price = models.DecimalField(max_digits=10, decimal_places=2)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    addons = models.ManyToManyField(Addon, blank=True)
+
+    def __str__(self):
+        return self.order_id
+
+    class Meta:
+        verbose_name = ('Order Item')
+
+
+class OrderItemMeta(models.Model):
+    order_item_id = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
+    meta_key = models.CharField('Meta Key', max_length=50)
+    meta_value = models.CharField('Meta Value', max_length=50)
+
+
+
+
+
+
+
+
+
 

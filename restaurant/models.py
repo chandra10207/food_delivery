@@ -1,5 +1,6 @@
 from django.db import models
-# from django import forms
+# from address.models import AddressField
+from django import forms
 #
 # class ImageUploadForm(forms.Form):
 #     """Image upload form."""
@@ -18,6 +19,10 @@ class Restaurant(models.Model):
     restaurant_logo = models.ImageField(upload_to='restaurant/images/',blank=True)
     owner = models.ForeignKey('auth.User', related_name='restaurant_owner', on_delete=models.CASCADE)
     follower = models.ManyToManyField('auth.User', blank=True)
+    # address1 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'id': "autocomplete"}))
+    # address2 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'id': "autocomplete"}))
+    # address1 = AddressField(blank=True, null=True)
+    # address2 = AddressField(related_name='+', blank=True, null=True)
     # highlighted = models.TextField()
 
     def __str__(self):
