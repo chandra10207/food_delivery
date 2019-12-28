@@ -47,7 +47,7 @@ class FoodAdmin(admin.ModelAdmin):
     # list_filter = ( 'restaurant', 'owner')
     save_as = True
     save_on_top = True
-    change_list_template = 'change_list_graph.html'
+    # change_list_template = 'change_list_graph.html'
 
     # actions = [make_published]
 

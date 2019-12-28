@@ -92,7 +92,7 @@ class OrderItem(models.Model):
     addons = models.ManyToManyField(Addon, blank=True)
 
     def __str__(self):
-        return self.order_id
+        return str(self.order_id)
 
     class Meta:
         verbose_name = ('Order Item')

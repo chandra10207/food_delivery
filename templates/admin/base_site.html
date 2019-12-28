@@ -4,7 +4,13 @@
 
 {% block branding %}
     <div class="head">
-        <h1 id="name">Food Delivery Dashboard</h1>
+
+    {% if request.user.is_superuser  %}
+        <h1 id="name">Food Delivery Admin Dashboard</h1>
+    {% endif %}
+    {% if request.user.is_superuser == False %}
+        <h1 id="name">Restaurant Dashboard</h1>
+    {% endif %}
     </div>
 {% endblock %}
 
