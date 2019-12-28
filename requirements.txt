@@ -11,3 +11,4 @@ django-allauth
 #httpie
 #django-address
 docutils
+whitenoise
