@@ -77,7 +77,7 @@ class RegisterSerializer(serializers.Serializer):
             'username': self.validated_data.get('username', ''),
             'first_name': self.validated_data.get('first_name', ''),
             'last_name': self.validated_data.get('last_name', ''),
-            'password': self.validated_data.get('password', ''),
+            'password1': self.validated_data.get('password', ''),
             'email': self.validated_data.get('email', ''),
         }
 
