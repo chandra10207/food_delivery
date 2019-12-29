@@ -66,10 +66,11 @@ class RegisterSerializer(serializers.Serializer):
     #         raise serializers.ValidationError("The two password fields didn't match.")
     #     return data
 
-   # def custom_signup(self, request, user):
-   #   user.first_name = self.validated_data.get('first_name', '')
-   #   user.last_name = self.validated_data.get('last_name', '')
-   #   user.save(update_fields=['first_name', 'last_name'])
+    # def custom_signup(self, request, user):
+    #     user.first_name = self.validated_data.get('first_name', '')
+    #     user.last_name = self.validated_data.get('last_name', '')
+    #     user.password = self.validated_data.get('password', '')
+    #     user.save(update_fields=['first_name', 'last_name','password'])
 
     def get_cleaned_data(self):
         return {

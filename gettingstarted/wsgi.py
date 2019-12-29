@@ -19,7 +19,7 @@ from whitenoise import WhiteNoise
 application = get_wsgi_application()
 
 application = WhiteNoise(application, root=settings.MEDIA_ROOT, prefix='media/')
-# application.add_files('/path/to/more/static/files', prefix='media/')
+application.add_files(settings.MEDIA_ROOT, prefix='media/')
 
 
 # from whitenoise.django import DjangoWhiteNoise

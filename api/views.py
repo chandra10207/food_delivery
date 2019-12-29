@@ -15,9 +15,14 @@ from rest_framework.authtoken.views import ObtainAuthToken
 
 class UserListView(generics.ListAPIView):
     # queryset = models.CustomUser.objects.all()
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('-id')
+    # queryset = queryset.order_by('-id')
     serializer_class = serializers.UserSerializer
 
+
+# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = serializers.UserSerializer
 
 
 
