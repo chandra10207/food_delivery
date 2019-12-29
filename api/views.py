@@ -10,7 +10,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
-
+from sales.models import Order
+from sales.serializers import OrderSerializer
 
 
 class UserListView(generics.ListAPIView):
@@ -20,9 +21,13 @@ class UserListView(generics.ListAPIView):
     serializer_class = serializers.UserSerializer
 
 
-# class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = serializers.UserSerializer
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserSerializer
+
+class UserOrdersAPI(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
 
 
 

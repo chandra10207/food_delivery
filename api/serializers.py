@@ -16,12 +16,15 @@ from rest_framework.authtoken.models import Token
 from allauth.utils import (email_address_exists,
                            get_username_max_length)
 import rest_auth.serializers
+from sales.models import Order
+from sales.models import OrderItem
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         # model = models.CustomUser
         model = User
         fields = ('id', 'email', 'username', 'first_name', 'last_name')
+
 
 
 # class CustomRestRegisterSerializer(serializers.ModelSerializer):
