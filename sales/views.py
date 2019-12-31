@@ -38,6 +38,6 @@ class OrderListDetailApi(generics.RetrieveUpdateDestroyAPIView):
 
 
 def index(request):
-    return HttpResponse('Hello from Restaurant Index page!')
+    return HttpResponse('Hello from Sales Index page!')
 
 

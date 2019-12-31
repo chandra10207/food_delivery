@@ -43,7 +43,7 @@ def make_published(modeladmin, request, queryset):
     queryset.update(status='p')
 make_published.short_description = "Mark selected stories as published"
 
-
+# @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
     # date_hierarchy = 'pub_date'
     # list_display = ('full_name', 'langugae', 'grades', 'gender')

@@ -37,6 +37,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # "django_adminlte",
+    "sales",
+    "adminlte3",
+    # "django_adminlte_theme",
+    "adminlte3_theme",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -51,7 +56,7 @@ INSTALLED_APPS = [
     "product",
     "food_delivery",
     "restaurant",
-    "sales",
+    # "sales",
     "rest_framework",
   # "rest_framework_api_key",
     'rest_framework.authtoken',
