@@ -20,4 +20,4 @@ class UserProfileInfoForm(forms.ModelForm):
 class RestaurantForm(forms.ModelForm):
     class Meta():
         model = Restaurant
-        fields = ("name", "restaurant_address", "content", "website", "restaurant_banner_image", "restaurant_logo")
+        fields = ("name", "restaurant_address", "content", "website","email", "restaurant_banner_image", "restaurant_logo")
