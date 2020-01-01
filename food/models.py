@@ -2,7 +2,9 @@ from django.contrib import admin
 from django.db import models
 from restaurant.models import Restaurant
 from django.contrib.auth.models import User
+# from food.middleware import CurrentUserMiddleware
 
+# cms.middleware.user.CurrentUserMiddleware
 from django import forms
 
 
@@ -11,6 +13,8 @@ class Addon(models.Model):
     slug = models.SlugField(unique=True, max_length=255)
     description = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
+    # created_by = models.ForeignKey(User, blank=False, related_name='addons', editable=False, default=CurrentUserMiddleware.get_current_user, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, blank=False, related_name='addons', editable=False, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:

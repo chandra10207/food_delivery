@@ -6,7 +6,7 @@ from django.contrib.admin import SimpleListFilter
 
 # Register your models here.
 # admin.site.register(Food)
-admin.site.register(Addon)
+# admin.site.register(Addon)
 
 
 # admin.site.register(Addon, AddonAdmin)
@@ -74,14 +74,18 @@ admin.site.register(Food, FoodAdmin)
 
 
 # @admin.register(Customer)
-# class CustomerAdmin(admin.ModelAdmin):
-#     list_display = ['first_name', 'last_name', 'is_premium']
-#     search_fields = ['first_name', 'last_name']
-#
-#     class Media:
-#         # this path may be any you want,
-#         # just put it in your static folder
-#         js = ('js/admin/placeholder.js',)
+class AddonAdmin(admin.ModelAdmin):
+    list_display = ['name', 'price', 'created_by']
+    search_fields = ['created_by']
+
+    def save_model(self, request, obj, form, change):
+        """When creating a new object, set the creator field.
+        """
+        if not change:
+            obj.created_by = request.user
+        obj.save()
+
+admin.site.register(Addon, AddonAdmin)
 
 
 

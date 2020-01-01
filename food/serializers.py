@@ -6,7 +6,7 @@ class AddonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Addon
-        fields = ("id", "name", "description", "price")
+        fields = ("id", "name", "description", "price","created_by")
 
 
 class FoodSerializer(serializers.ModelSerializer):
