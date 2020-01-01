@@ -1,26 +1,24 @@
 from django.contrib import admin
 from restaurant.models import Restaurant
 # Register your models here.
-admin.site.register(Restaurant)
+# admin.site.register(Restaurant)
 
+# @admin.register(Customer)
+class RestaurantAdmin(admin.ModelAdmin):
+    list_display = ['name', 'owner']
 
-# class RestaurantAdmin(admin.ModelAdmin):
-#       def get_readonly_fields(self, request, obj=None):
-#         if not request.user.is_superuser and request.user.has_perm('restaurants.read_item'):
-#             return [f.name for f in self.model._meta.fields]
-#         return super(Restaurant, self).get_readonly_fields(
-#             request, obj=obj
-#         )
-#     # def has_add_permission(request):
-#     #     # Should return True if adding an object is permitted, False otherwise.
-#     #
-#     # def has_change_permission(request, obj=None)
-#     #     # Should return True if editing obj is permitted, False otherwise.
-#     #     # If obj is None, should return True or False to indicate whether editing of objects of this type is permitted in general
-#     #
-#     # def has_delete_permission(request, obj=None)
-#     #     # Should return True if deleting obj is permitted, False otherwise.
-#     #     # If obj is None, should return True or False to indicate whether deleting objects of this type is permitted in general
-#
-#
-# admin.site.register(Restaurant, RestaurantAdmin)
+    # def save_model(self, request, obj, form, change):
+    #     """When creating a new object, set the creator field.
+    #     """
+    #     if not change:
+    #         obj.created_by = request.user
+    #     obj.save()
+
+    def get_queryset(self, request):
+        qs = super(RestaurantAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        # return queryset.filter(owner=request.user)
+        return qs.filter(owner=request.user)
+
+admin.site.register(Restaurant, RestaurantAdmin)

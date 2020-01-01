@@ -41,13 +41,41 @@ class FoodAdmin(admin.ModelAdmin):
     # date_hierarchy = 'pub_date'
     # list_display = ('full_name', 'langugae', 'grades', 'gender')
     list_display = ('name', 'regular_price', 'restaurant', 'owner')
-    list_filter = (CountryFilter,)
+    # list_filter = (CountryFilter,)
     # ordering = ['name']
     # list_filter = ('langugae', 'gender', 'grades')
     # list_filter = ( 'restaurant', 'owner')
     save_as = True
     save_on_top = True
     # change_list_template = 'change_list_graph.html'
+
+    def save_model(self, request, obj, form, change):
+        """When creating a new object, set the creator field.
+        """
+        if not change:
+            obj.owner = request.user
+        obj.save()
+
+    def get_queryset(self, request):
+        qs = super(FoodAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        # return queryset.filter(owner=request.user)
+        return qs.filter(owner=request.user)
+
+    # def get_object(self, request, object_id):
+    #     # Hook obj for use in formfield_for_manytomany
+    #     self.obj = super(FoodAdmin, self).get_object(request, object_id)
+    #     # print "Got object:", self.obj
+    #     return self.obj
+
+    # def formfield_for_manytomany(self, db_field, request, **kwargs):
+    #     if db_field.name == "addons" and getattr(self, 'obj', None):
+    #         # kwargs["queryset"] = Addon.objects.filter(created_by=self.obj.owner)
+    #         kwargs["queryset"] = Addon.objects.filter(created_by=request.user)
+    #         # kwargs["queryset"] = Addon.objects.filter(task=self.obj)
+    #     return super(FoodAdmin, self).formfield_for_manytomany(
+    #         db_field, request, **kwargs)
 
     # actions = [make_published]
     class Media:
@@ -77,13 +105,19 @@ admin.site.register(Food, FoodAdmin)
 class AddonAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'created_by']
     search_fields = ['created_by']
-
     def save_model(self, request, obj, form, change):
         """When creating a new object, set the creator field.
         """
         if not change:
             obj.created_by = request.user
         obj.save()
+
+    def get_queryset(self, request):
+        qs = super(AddonAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        # return queryset.filter(owner=request.user)
+        return qs.filter(created_by=request.user)
 
 admin.site.register(Addon, AddonAdmin)
 
