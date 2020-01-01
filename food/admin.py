@@ -1,7 +1,7 @@
 from django.contrib import admin
 # from food.models import Food, Addon , AddonAdmin, FoodAdmin, ProductAddon_inline
 from food.models import Food, Addon
-
+from restaurant.models import Restaurant
 from django.contrib.admin import SimpleListFilter
 
 # Register your models here.
@@ -52,8 +52,13 @@ class FoodAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         """When creating a new object, set the creator field.
         """
+        restaurant = request.user.restaurant_owner
+        restaurantfood = Restaurant.objects.get(owner=request.user)
+        # print(restaurant)
+        # breakpoint()
         if not change:
             obj.owner = request.user
+            obj.restaurant = restaurantfood
         obj.save()
 
     def get_queryset(self, request):
@@ -63,19 +68,10 @@ class FoodAdmin(admin.ModelAdmin):
         # return queryset.filter(owner=request.user)
         return qs.filter(owner=request.user)
 
-    # def get_object(self, request, object_id):
-    #     # Hook obj for use in formfield_for_manytomany
-    #     self.obj = super(FoodAdmin, self).get_object(request, object_id)
-    #     # print "Got object:", self.obj
-    #     return self.obj
-
-    # def formfield_for_manytomany(self, db_field, request, **kwargs):
-    #     if db_field.name == "addons" and getattr(self, 'obj', None):
-    #         # kwargs["queryset"] = Addon.objects.filter(created_by=self.obj.owner)
-    #         kwargs["queryset"] = Addon.objects.filter(created_by=request.user)
-    #         # kwargs["queryset"] = Addon.objects.filter(task=self.obj)
-    #     return super(FoodAdmin, self).formfield_for_manytomany(
-    #         db_field, request, **kwargs)
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "addons":
+             kwargs["queryset"] = Addon.objects.filter(created_by=request.user)
+        return super(FoodAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     # actions = [make_published]
     class Media:
