@@ -21,7 +21,7 @@ import food_delivery.views
 # Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
 
 
-admin.site.site_header = "Food Delivery Admin"
+admin.site.site_header = "Food Delivery"
 admin.site.site_title = "Food Delivery Admin Portal"
 admin.site.index_title = "Available Options"
 

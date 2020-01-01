@@ -30,3 +30,6 @@ class Restaurant(models.Model):
 
     class Meta:
         ordering = ['created_on']
+        # permissions = (
+        #     ('read_item','Can read item'),
+        # )

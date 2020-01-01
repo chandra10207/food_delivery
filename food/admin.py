@@ -50,6 +50,11 @@ class FoodAdmin(admin.ModelAdmin):
     # change_list_template = 'change_list_graph.html'
 
     # actions = [make_published]
+    class Media:
+        css = {
+            'all': ('/static/admin-lte/plugins/select2/css/select2.css','/static/admin/css/custom.css')
+             }
+        js = ('/static/admin-lte/plugins/select2/js/select2.full.js','/static/admin/js/custom.js')
 
     # def export_as_json(modeladmin, request, queryset):
     #     response = HttpResponse(content_type="application/json")
@@ -66,3 +71,18 @@ class FoodAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Food, FoodAdmin)
+
+
+# @admin.register(Customer)
+# class CustomerAdmin(admin.ModelAdmin):
+#     list_display = ['first_name', 'last_name', 'is_premium']
+#     search_fields = ['first_name', 'last_name']
+#
+#     class Media:
+#         # this path may be any you want,
+#         # just put it in your static folder
+#         js = ('js/admin/placeholder.js',)
+
+
+
+
