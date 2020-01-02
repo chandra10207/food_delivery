@@ -21,6 +21,7 @@ from sales.models import OrderItem
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
+        # restaurant_
         # model = models.CustomUser
         model = User
         fields = ('id', 'email', 'username', 'first_name', 'last_name')

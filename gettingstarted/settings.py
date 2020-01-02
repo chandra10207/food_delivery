@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "food_delivery",
     "restaurant",
     # "sales",
+    "store_follower",
     "rest_framework",
   # "rest_framework_api_key",
     'rest_framework.authtoken',

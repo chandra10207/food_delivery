@@ -17,7 +17,7 @@ class Restaurant(models.Model):
     # logo = models.ImageField(upload_to='restaurant/images/', default='restaurant/images/None/no-img.jpg')
     restaurant_banner_image = models.ImageField(upload_to='restaurant/images/',blank=True)
     restaurant_logo = models.ImageField(upload_to='restaurant/images/',blank=True)
-    owner = models.ForeignKey('auth.User', related_name='restaurant_owner', on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='restaurant_owner', editable=False, on_delete=models.CASCADE)
     follower = models.ManyToManyField('auth.User', blank=True)
     # address1 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'id': "autocomplete"}))
     # address2 = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'id': "autocomplete"}))

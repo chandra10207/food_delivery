@@ -4,9 +4,8 @@ from api import views as api_views
 from rest_framework.authtoken import views
 from django.conf.urls import url
 from api.views import CustomObtainAuthToken
-from sales.models import Order, OrderItem, OrderItemMeta
-# from sales.views import sales_views, OrderListDetailApi
 from sales import views as sales_views
+from store_follower import views as store_follower_views
 
 
 urlpatterns = [
@@ -16,6 +15,8 @@ urlpatterns = [
     path('user/<int:pk>/orders', api_views.UserOrdersAPI.as_view(), name="user-orders"),
     path('orders/', sales_views.OrderListApi.as_view()),
     path('order/<int:pk>', sales_views.OrderListDetailApi.as_view(), name="order-detail"),
+    path('storefollowers/', store_follower_views.StoreFollowerListAPI.as_view()),
+    path('storefollower/<int:pk>', store_follower_views.StoreFollowerDetailAPI.as_view(), name="order-detail"),
 
     # path('users/', api_views.UserListView.as_view()),
     # path('rest-auth/', include('rest_auth.urls')),

@@ -7,12 +7,12 @@ from restaurant.models import Restaurant
 class RestaurantAdmin(admin.ModelAdmin):
     list_display = ['name', 'owner']
 
-    # def save_model(self, request, obj, form, change):
-    #     """When creating a new object, set the creator field.
-    #     """
-    #     if not change:
-    #         obj.created_by = request.user
-    #     obj.save()
+    def save_model(self, request, obj, form, change):
+        """When creating a new object, set the creator field.
+        """
+        if not change:
+            obj.owner = request.user
+        obj.save()
 
     def get_queryset(self, request):
         qs = super(RestaurantAdmin, self).get_queryset(request)

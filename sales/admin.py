@@ -35,7 +35,7 @@
 # from django.http import HttpResponse
 # from django.core import serializers
 from django.contrib import admin
-from sales.models import Student, Order, OrderItem
+from sales.models import Student, Order, OrderItem, OrderItemMeta
 
 
 
@@ -68,3 +68,4 @@ class StudentAdmin(admin.ModelAdmin):
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Order)
 admin.site.register(OrderItem)
+admin.site.register(OrderItemMeta)

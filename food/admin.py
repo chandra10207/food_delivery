@@ -52,7 +52,7 @@ class FoodAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         """When creating a new object, set the creator field.
         """
-        restaurant = request.user.restaurant_owner
+        # restaurant = request.user.restaurant_owner
         restaurantfood = Restaurant.objects.get(owner=request.user)
         # print(restaurant)
         # breakpoint()
