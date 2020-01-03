@@ -21,7 +21,8 @@ class Restaurant(models.Model):
     # logo = models.ImageField(upload_to='restaurant/images/', default='restaurant/images/None/no-img.jpg')
     restaurant_banner_image = models.ImageField(upload_to='restaurant/images/',blank=True)
     restaurant_logo = models.ImageField(upload_to='restaurant/images/',blank=True)
-    owner = models.ForeignKey('auth.User', related_name='restaurant_owner', editable=False, on_delete=models.CASCADE)
+    # owner = models.ForeignKey('auth.User', related_name='restaurant_owner', editable=False, on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='restaurant_owner', on_delete=models.CASCADE)
     # address = map_fields.AddressField(max_length=200, null=True, blank=True)
     # geolocation = map_fields.GeoLocationField(max_length=100, null=True, blank=True)
     # from django_google_maps import fields as map_fields

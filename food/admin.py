@@ -48,17 +48,30 @@ class FoodAdmin(admin.ModelAdmin):
     save_as = True
     save_on_top = True
     # change_list_template = 'change_list_graph.html'
+    # readonly_fields = ('owner','restaurant')
+
+    normaluser_fields = ['name','slug','description','regular_price','image','addons']
+    superuser_fields = ['owner','restaurant']
+
+    def get_form(self, request, obj=None, **kwargs):
+        if request.user.is_superuser:
+            self.fields = self.normaluser_fields + self.superuser_fields
+        else:
+            self.fields = self.normaluser_fields
+        return super(FoodAdmin, self).get_form(request, obj, **kwargs)
 
     def save_model(self, request, obj, form, change):
         """When creating a new object, set the creator field.
         """
         # restaurant = request.user.restaurant_owner
-        restaurantfood = Restaurant.objects.get(owner=request.user)
+        # restaurantfood = Restaurant.objects.get(owner=request.user)
         # print(restaurant)
         # breakpoint()
         if not change:
-            obj.owner = request.user
-            obj.restaurant = restaurantfood
+            if not request.user.is_superuser:
+                restaurantfood = Restaurant.objects.get(owner=request.user)
+                obj.owner = request.user
+                obj.restaurant = restaurantfood
         obj.save()
 
     def get_queryset(self, request):
@@ -70,7 +83,9 @@ class FoodAdmin(admin.ModelAdmin):
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "addons":
-             kwargs["queryset"] = Addon.objects.filter(created_by=request.user)
+            if not request.user.is_superuser:
+                # kwargs["queryset"] = Addon.objects.all()
+                kwargs["queryset"] = Addon.objects.filter(created_by=request.user)
         return super(FoodAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     # actions = [make_published]
@@ -101,6 +116,17 @@ admin.site.register(Food, FoodAdmin)
 class AddonAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'created_by']
     search_fields = ['created_by']
+
+
+    # def get_readonly_fields(self, request, obj=None):
+    #     if request.user.is_superuser:
+    #         return []
+    #     return ["owner"]
+    #     # if obj:
+    #     #     return ["name", "category"]
+    #     # else:
+    #     #     return []
+
     def save_model(self, request, obj, form, change):
         """When creating a new object, set the creator field.
         """

@@ -14,6 +14,16 @@ class RestaurantAdmin(admin.ModelAdmin):
     # }
     list_display = ['name', 'owner']
 
+    normaluser_fields = ['name','restaurant_address','email','website','content','restaurant_logo','restaurant_banner_image']
+    superuser_fields = ['owner']
+
+    def get_form(self, request, obj=None, **kwargs):
+        if request.user.is_superuser:
+            self.fields = self.normaluser_fields + self.superuser_fields
+        else:
+            self.fields = self.normaluser_fields
+        return super(RestaurantAdmin, self).get_form(request, obj, **kwargs)
+
     def save_model(self, request, obj, form, change):
         """When creating a new object, set the creator field.
         """
