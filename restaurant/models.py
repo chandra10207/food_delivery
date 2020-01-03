@@ -11,6 +11,7 @@ class ImageUploadForm(forms.Form):
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=42)
+    newfields = models.CharField(max_length=42, null=True, blank=True)
     restaurant_address = models.CharField(max_length=42, null=True, blank=True)
     email = models.EmailField(max_length=75)
     website = models.URLField(max_length=200, null=True, blank=True)
