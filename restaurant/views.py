@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from restaurant.models import Restaurant
-from restaurant.serializers import RestaurantSerializer
+from restaurant.serializers import RestaurantSerializer, JustRestaurantSerializer
 from rest_framework import generics
 from django.http import HttpResponse
 
@@ -9,7 +9,7 @@ from django.http import HttpResponse
 
 class RestaurantList(generics.ListCreateAPIView):
     queryset = Restaurant.objects.all()
-    serializer_class = RestaurantSerializer
+    serializer_class = JustRestaurantSerializer
 
 
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):

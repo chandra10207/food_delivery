@@ -14,7 +14,7 @@ urlpatterns = [
     path('foods/', views.FoodsList.as_view(), name="food-all"), #class based view
     # path('restaurants/', views.list_restaurant), #function based view
 
-    # path('restaurant/<int:pk>', GetRestaurantDetail.as_view(), name="restaurant-detail")
+    path('food/<int:pk>', views.FoodDetail.as_view(), name="food-detail")
     # path('restaurant/<int:pk>', views.RestaurantDetail.as_view(), name="restaurant-detail")
     # path('restaurant/<int:pk>', views.restaurant_single)
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from food.models import Food
-from food.serializers import FoodSerializer
+from food.serializers import FoodSerializer, JustFoodSerializer
 from rest_framework import generics
 from django.http import HttpResponse
 
@@ -9,7 +9,7 @@ from django.http import HttpResponse
 
 class FoodsList(generics.ListCreateAPIView):
     queryset = Food.objects.all()
-    serializer_class = FoodSerializer
+    serializer_class = JustFoodSerializer
 
 
 class FoodDetail(generics.RetrieveUpdateDestroyAPIView):
