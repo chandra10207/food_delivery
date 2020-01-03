@@ -1,4 +1,7 @@
 from django.db import models
+from django.urls import reverse
+from django.utils.safestring import mark_safe
+
 from restaurant.models import Restaurant
 
 # Create your models here.
@@ -16,3 +19,20 @@ class StoreFollower(models.Model):
     def __str__(self):
         # return "{} Followed {} From {}".format(self.user_id, self.restaurant_id, self.followed_on)
         return str(self.user_id)
+
+    def get_absolute_url(self):
+        return '/%s/' % (self.id)
+
+
+    def get_edit_url(self):
+        return '/admin/store_follower/storefollower/%s/change' % (self.id)
+
+
+    def get_delete_url(self):
+        return '/%s/delete' % (self.id)
+
+    def profile_link(self):
+        return mark_safe('<a href="%s" class="btn btn-info"><i class="nav-icon fas fa-edit"></i></a>' % (self.get_edit_url()))
+        # return mark_safe('<a href="%s" class="btn btn-danger"><i class="fas fa-trash"></i></a>' % (self.get_absolute_url))
+
+    profile_link.allow_tags = True

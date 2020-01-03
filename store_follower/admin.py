@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.urls import reverse
+from django.utils.safestring import mark_safe
+
 from store_follower.models import StoreFollower
 from restaurant.models import Restaurant
 
@@ -6,7 +9,7 @@ from restaurant.models import Restaurant
 # Register your models here.
 
 class StoreFollowerAdmin(admin.ModelAdmin):
-    list_display = ['user_id', 'restaurant_id', 'followed_on']
+    list_display = ['user_id', 'restaurant_id', 'followed_on','profile_link']
 
     # readonly_fields = ['user_id', 'follower_name', 'restaurant_name', 'restaurant_id']
 
