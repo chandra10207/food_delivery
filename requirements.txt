@@ -1,5 +1,6 @@
 djangorestframework
 django
+#Django-2.2.9
 gunicorn
 django-heroku
 requests
@@ -13,4 +14,4 @@ django-allauth
 docutils
 whitenoise
 django-adminlte3
-django-google-maps
+#django-google-maps

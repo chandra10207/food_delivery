@@ -2,16 +2,16 @@ import json
 
 from django.contrib import admin
 from restaurant.models import Restaurant
-from django_google_maps import widgets as map_widgets
-from django_google_maps import fields as map_fields
+# from django_google_maps import widgets as map_widgets
+# from django_google_maps import fields as map_fields
 # Register your models here.
 # admin.site.register(Restaurant)
 
 # @admin.register(Customer)
 class RestaurantAdmin(admin.ModelAdmin):
-    formfield_overrides = {
-        map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
-    }
+    # formfield_overrides = {
+    #     map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
+    # }
     list_display = ['name', 'owner']
 
     def save_model(self, request, obj, form, change):

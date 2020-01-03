@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'rest_auth.registration',
-    'django_google_maps',
+    # 'django_google_maps',
 
 ]
 
