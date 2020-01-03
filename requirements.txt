@@ -13,3 +13,4 @@ django-allauth
 docutils
 whitenoise
 django-adminlte3
+django-google-maps
