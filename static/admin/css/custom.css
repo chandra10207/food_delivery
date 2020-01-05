@@ -1,3 +1,11 @@
 select[multiple] {
     min-width: 300px;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #157af6;}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #fff;}
+

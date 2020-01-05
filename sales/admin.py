@@ -1,43 +1,6 @@
-# from django.contrib import admin
-# from .models import SaleSummary
-#
-# @admin.register(SaleSummary)
-# class SaleSummaryAdmin(admin.ModelAdmin):
-#     change_list_template = 'admin/sale_summary_change_list.html'
-#     date_hierarchy = 'created'
-#
-#     def changelist_view(self, request, extra_context=None):
-#         response = super().changelist_view(
-#             request,
-#             extra_context=extra_context,
-#         )
-#
-#         try:
-#             qs = response.context_data['cl'].queryset
-#         except (AttributeError, KeyError):
-#             return response
-#
-#         metrics = {
-#             'total': Count('id'),
-#             'total_sales': Sum('price'),
-#         }
-#
-#         response.context_data['summary'] = list(
-#             qs
-#                 .values('sale__category__name')
-#                 .annotate(**metrics)
-#                 .order_by('-total_sales')
-#         )
-#
-#         return response
-#
-#
-# from django.http import HttpResponse
-# from django.core import serializers
 from django.contrib import admin
 from sales.models import Student, Order, OrderItem, OrderItemMeta
-
-
+from restaurant.models import Restaurant
 
 def make_published(modeladmin, request, queryset):
     queryset.update(status='p')
@@ -63,9 +26,79 @@ class StudentAdmin(admin.ModelAdmin):
 
 
 
+# @admin.register(Customer)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['user_id', 'seller_total', 'seller_id',"order_status",'created_on', 'completed_on']
+    search_fields = ['user_id']
+    readonly_fields = ['user_id','seller_id','seller_total']
+    normaluser_fields = ['user_id', 'seller_total', 'seller_id',"order_status", 'completed_on']
+    superuser_fields = ['order_total']
+    # search_fields = ['user_id']
+    # autocomplete_fields = ['owner','restaurant','addons']
+    # autocomplete_fields = ['addons']
+    # list_select_related = ['addons']
+    list_per_page = 10
 
+    def get_form(self, request, obj=None, **kwargs):
+        if request.user.is_superuser:
+            self.fields = self.normaluser_fields + self.superuser_fields
+        else:
+            self.fields = self.normaluser_fields
+        return super(OrderAdmin, self).get_form(request, obj, **kwargs)
+
+    def get_readonly_fields(self, request, obj=None):
+        if request.user.is_superuser:
+            return []
+        return self.readonly_fields
+    #
+    #
+    # def changelist_view(self, request, extra_context=None):
+    #     if request.user.is_superuser:
+    #         self.list_display = ['user_id', 'seller_total', 'seller_id',"order_status"]
+    #     else:
+    #         self.list_display = ['user_id', 'seller_total', 'seller_id',"order_status"]
+    #
+    # def get_form(self, request, obj=None, **kwargs):
+    #     self.exclude = []
+    #     if request.user.is_superuser:
+    #         self.exclude = []
+    #         # self.fieldsets = self.fieldsets_user + self.fieldsets_superuser
+    #     else:
+    #         self.exclude.extend(['seller_total', ])
+    #         # self.fieldsets = self.fieldsets_user
+    #     return super(OrderAdmin, self).get_form(request, obj, **kwargs)
+
+    # def get_readonly_fields(self, request, obj=None):
+    #     if request.user.is_staff:
+    #         if request.user.is_superuser:
+    #             return []
+    #         else:
+    #             return [f.name for f in self.model._meta.fields]
+
+
+    #     return ["owner"]
+    #     # if obj:
+    #     #     return ["name", "category"]
+    #     # else:
+    #     #     return []
+
+    # def save_model(self, request, obj, form, change):
+    #     """When creating a new object, set the creator field.
+    #     """
+    #     if not change:
+    #         obj.created_by = request.user
+    #     obj.save()
+
+    def get_queryset(self, request):
+        qs = super(OrderAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        else:
+            restaurant = Restaurant.objects.get(owner=request.user)
+            return qs.filter(seller_id=restaurant.id)
 
 admin.site.register(Student, StudentAdmin)
-admin.site.register(Order)
+admin.site.register(Order, OrderAdmin)
+# admin.site.register(Order)
 admin.site.register(OrderItem)
 admin.site.register(OrderItemMeta)
