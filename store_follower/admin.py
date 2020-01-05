@@ -11,6 +11,8 @@ from restaurant.models import Restaurant
 class StoreFollowerAdmin(admin.ModelAdmin):
     list_display = ['user_id', 'restaurant_id', 'followed_on','profile_link']
 
+    autocomplete_fields = ['user_id','restaurant_id']
+
     # readonly_fields = ['user_id', 'follower_name', 'restaurant_name', 'restaurant_id']
 
     # def save_model(self, request, obj, form, change):
@@ -22,11 +24,12 @@ class StoreFollowerAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(StoreFollowerAdmin, self).get_queryset(request)
-        restaurant = Restaurant.objects.get(owner=request.user)
         if request.user.is_superuser:
             return qs
-        # return queryset.filter(owner=request.user)
-        return qs.filter(restaurant_id=restaurant).filter(is_followed=True)
+        else:
+            restaurant = Restaurant.objects.get(owner=request.user)
+            # return queryset.filter(owner=request.user)
+            return qs.filter(restaurant_id=restaurant).filter(is_followed=True)
 
     # def get_readonly_fields(self, request, obj=None):
     #     fields = super().get_readonly_fields(request)

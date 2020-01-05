@@ -16,6 +16,10 @@ class StoreFollower(models.Model):
     # restaurant_id = models.ForeignKey(Restaurant, related_name='followers', editable=False, on_delete=models.CASCADE)
     restaurant_id = models.ForeignKey(Restaurant, related_name='followers', on_delete=models.CASCADE,verbose_name='Restaurant')
 
+    class Meta:
+        verbose_name = "Follower"
+        verbose_name_plural = "Followers"
+
     def __str__(self):
         # return "{} Followed {} From {}".format(self.user_id, self.restaurant_id, self.followed_on)
         return str(self.user_id)

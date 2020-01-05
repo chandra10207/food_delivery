@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth.registration',
     # 'django_google_maps',
+    "promocode",
 
 ]
 

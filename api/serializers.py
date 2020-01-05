@@ -18,14 +18,27 @@ from allauth.utils import (email_address_exists,
 import rest_auth.serializers
 from sales.models import Order
 from sales.models import OrderItem
+from store_follower.serializers import StoreFollowerSerializer
+from sales.serializers import OrderSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         # restaurant_
         # model = models.CustomUser
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name')
+        fields = ('id', 'email', 'username', 'first_name', 'last_name','followed_stores','orders')
 
+
+class UserDetailSerializer(serializers.ModelSerializer):
+
+    orders = OrderSerializer(many=True, read_only=True)
+    followed_stores = StoreFollowerSerializer(many=True, read_only=True)
+
+    class Meta:
+        # restaurant_
+        # model = models.CustomUser
+        model = User
+        fields = ('id', 'email', 'username', 'first_name', 'last_name','followed_stores','orders')
 
 
 # class CustomRestRegisterSerializer(serializers.ModelSerializer):
@@ -118,6 +131,10 @@ class LoginSerializer(rest_auth.serializers.LoginSerializer):
 
     def validate(self, attrs):
         usernameoremail = attrs['email']
+        # if '@' in username:
+        #     kwargs = {'email': username}
+        # else:
+        #     kwargs = {'mobile_phone': username}
         if User.objects.filter(email=usernameoremail).exists():
             # new_user = User(email=usernameoremail)
             new_user = User.objects.get(email=usernameoremail)

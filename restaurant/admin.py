@@ -13,9 +13,12 @@ class RestaurantAdmin(admin.ModelAdmin):
     #     map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
     # }
     list_display = ['name', 'owner']
-
     normaluser_fields = ['name','restaurant_address','email','website','content','restaurant_logo','restaurant_banner_image']
     superuser_fields = ['owner']
+    search_fields = ['name']
+    autocomplete_fields = ['owner']
+    list_select_related = ['owner']
+    list_per_page = 10
 
     def get_form(self, request, obj=None, **kwargs):
         if request.user.is_superuser:

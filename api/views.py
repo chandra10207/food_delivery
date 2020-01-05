@@ -23,7 +23,7 @@ class UserListView(generics.ListAPIView):
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
+    serializer_class = serializers.UserDetailSerializer
 
 class UserOrdersAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()

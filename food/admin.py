@@ -42,7 +42,7 @@ class FoodAdmin(admin.ModelAdmin):
     # list_display = ('full_name', 'langugae', 'grades', 'gender')
     list_display = ('name', 'regular_price', 'restaurant', 'owner')
     # list_filter = (CountryFilter,)
-    # ordering = ['name']
+    ordering = ['name']
     # list_filter = ('langugae', 'gender', 'grades')
     # list_filter = ( 'restaurant', 'owner')
     save_as = True
@@ -52,6 +52,11 @@ class FoodAdmin(admin.ModelAdmin):
 
     normaluser_fields = ['name','slug','description','regular_price','image','addons']
     superuser_fields = ['owner','restaurant']
+    search_fields = ['name']
+    # autocomplete_fields = ['owner','restaurant','addons']
+    # autocomplete_fields = ['addons']
+    # list_select_related = ['addons']
+    list_per_page = 10
 
     def get_form(self, request, obj=None, **kwargs):
         if request.user.is_superuser:
@@ -115,7 +120,7 @@ admin.site.register(Food, FoodAdmin)
 # @admin.register(Customer)
 class AddonAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'created_by']
-    search_fields = ['created_by']
+    search_fields = ['name']
 
 
     # def get_readonly_fields(self, request, obj=None):
