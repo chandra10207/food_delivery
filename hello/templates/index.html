@@ -4,17 +4,16 @@
 {#{% load static from staticfiles %}#}
 
 {% block content %}
-
 <div class="jumbotron text-center">
   <div class="container">
     <a href="/" class="lang-logo">
-      <img src="{% static 'logo.png'%}">
+{#      <img src="{% static 'logo.png'%}">#}
+      <img src="{% static 'fed_logo.png'%}">
     </a>
     <p>Welcome to</p>
       <h1>Food Delivery Web Admin</h1>
-
-    <a type="button" class="btn btn-lg btn-default" href="/admin"><span class="glyphicon glyphicon-flash"></span> Login</a>
-    <a type="button" class="btn btn-lg btn-primary" href="/food_delivery/register"><span class="glyphicon glyphicon-download"></span> Register</a>
+    <a type="button" class="btn btn-lg btn-default" href="/admin"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+    <a type="button" class="btn btn-lg btn-primary" href="/food_delivery/register"><span class="glyphicon glyphicon-user"></span> Register</a>
   </div>
 </div>
 {#<div class="container">#}

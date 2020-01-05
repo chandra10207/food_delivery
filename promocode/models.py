@@ -28,6 +28,8 @@ class AllowedUsersRule(models.Model):
     all_users = models.BooleanField(default=False, verbose_name="All users?")
 
     def __str__(self):
+        if self.all_users:
+            return "For All Users"
         return "AllowedUsersRule Nº{0}".format(self.id)
 
     class Meta:
@@ -92,7 +94,6 @@ class Discount(models.Model):
 
 class Coupon(models.Model):
     code_length = get_coupon_code_length()
-
     code = models.CharField(max_length=code_length, default=get_random_code, verbose_name="Coupon Code", unique=True)
     discount = models.ForeignKey('Discount', on_delete=models.CASCADE)
     times_used = models.IntegerField(default=0, editable=False, verbose_name="Times used")

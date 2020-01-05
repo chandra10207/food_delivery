@@ -1,24 +1,43 @@
-{% extends "food_delivery/base.html" %}
+{% extends "base.html" %}
 {% load static %}
-{% block body_block %}
+{% block content %}
+<div class="jumbotron text-center1">
   <div class="container">
-    <div class="jumbotron">
+    <div class="registration-container">
       {% if registered %}
         <h1>Thank you for registering!</h1>
       {% else %}
         <h1>Restaurant Registration</h1>
-        <h3>Owner Details</h3>
+
 <form enctype="multipart/form-data" method="POST">
           {% csrf_token %}
-          {{ user_form.as_p }}
-          {{ profile_form.as_p }}
 
-        <h3>Restaurant  Details</h3>
+    <div class="row">
+        <div class="col-md-12">
+        <h2 class="mb-4">Owner Details</h2>
+           {{ user_form.as_p }}
+        </div>
+
+        <div class="col-md-12">
+            {{ profile_form.as_p }}
+        </div>
+
+        <div class="col-md-12">
+            <h2>Restaurant  Details</h2>
           {{ restaurant_form.as_p }}
-          <input type="submit" name="" value="Register">
+        </div>
+    </div>
+          <input class="btn btn-lg btn-primary" type="submit" name="" value="Register Now">
         </form>
-
       {% endif %}
     </div>
+{#    <a href="/" class="lang-logo">#}
+{#      <img src="{% static 'logo.png'%}">#}
+{#    </a>#}
+{#    <p>Welcome to</p>#}
+{#      <h1>Food Delivery Web Admin</h1>#}
+{#    <a type="button" class="btn btn-lg btn-default" href="/admin"><span class="glyphicon glyphicon-flash"></span> Login</a>#}
+{#    <a type="button" class="btn btn-lg btn-primary" href="/food_delivery/register"><span class="glyphicon glyphicon-download"></span> Register</a>#}
   </div>
+</div>
 {% endblock %}
