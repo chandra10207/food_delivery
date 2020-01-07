@@ -20,25 +20,30 @@ from sales.models import Order
 from sales.models import OrderItem
 from store_follower.serializers import StoreFollowerSerializer
 from sales.serializers import OrderSerializer
+from food_delivery.serializers import ProfileSerializer
 
 class UserSerializer(serializers.ModelSerializer):
+
+    profile = ProfileSerializer()
+
     class Meta:
         # restaurant_
         # model = models.CustomUser
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name','followed_stores','orders')
+        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'profile', 'followed_stores','orders')
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
 
     orders = OrderSerializer(many=True, read_only=True)
     followed_stores = StoreFollowerSerializer(many=True, read_only=True)
+    profile = ProfileSerializer()
 
     class Meta:
         # restaurant_
         # model = models.CustomUser
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name','followed_stores','orders')
+        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'profile', 'followed_stores','orders')
 
 
 # class CustomRestRegisterSerializer(serializers.ModelSerializer):

@@ -2,6 +2,7 @@ import json
 
 from django.contrib import admin
 from restaurant.models import Restaurant
+from Location.models import Address
 # from django_google_maps import widgets as map_widgets
 # from django_google_maps import fields as map_fields
 # Register your models here.
@@ -13,7 +14,7 @@ class RestaurantAdmin(admin.ModelAdmin):
     #     map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
     # }
     list_display = ['name', 'owner']
-    normaluser_fields = ['name','restaurant_address','email','website','content','restaurant_logo','restaurant_banner_image']
+    normaluser_fields = ['name','address','email','website','content','restaurant_logo','restaurant_banner_image']
     superuser_fields = ['owner']
     search_fields = ['name']
     autocomplete_fields = ['owner']
@@ -40,5 +41,13 @@ class RestaurantAdmin(admin.ModelAdmin):
             return qs
         # return queryset.filter(owner=request.user)
         return qs.filter(owner=request.user)
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        if db_field.name == "address":
+            kwargs["queryset"] = Address.objects.filter(created_by=request.user)
+        return super(RestaurantAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+
 
 admin.site.register(Restaurant, RestaurantAdmin)

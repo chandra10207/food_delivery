@@ -2,7 +2,7 @@ from django.db import models
 # from address.models import AddressField
 from django import forms
 # from django_google_maps import fields as map_fields
-
+from Location.models import Address
 
 
 class ImageUploadForm(forms.Form):
@@ -23,6 +23,7 @@ class Restaurant(models.Model):
     restaurant_logo = models.ImageField("Logo", upload_to='restaurant/images/',blank=True)
     # owner = models.ForeignKey('auth.User', related_name='restaurant_owner', editable=False, on_delete=models.CASCADE)
     owner = models.ForeignKey('auth.User', related_name='restaurant_owner', on_delete=models.CASCADE)
+    address = models.OneToOneField(Address, null=True, related_name='restaurants', on_delete=models.CASCADE)
     # address = map_fields.AddressField(max_length=200, null=True, blank=True)
     # geolocation = map_fields.GeoLocationField(max_length=100, null=True, blank=True)
     # from django_google_maps import fields as map_fields

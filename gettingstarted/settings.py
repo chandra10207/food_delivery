@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     # 'django_google_maps',
     "promocode",
+    "Location",
 
 ]
 
