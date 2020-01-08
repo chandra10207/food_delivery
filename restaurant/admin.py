@@ -44,7 +44,8 @@ class RestaurantAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == "address":
-            kwargs["queryset"] = Address.objects.filter(created_by=request.user)
+            if not request.user.is_superuser:
+                kwargs["queryset"] = Address.objects.filter(created_by=request.user)
         return super(RestaurantAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 

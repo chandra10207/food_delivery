@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from food_delivery.forms import UserForm, UserProfileInfoForm, RestaurantForm
+from food_delivery.forms import UserForm, UserProfileInfoForm, RestaurantForm, RestaurantAddressForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -28,7 +28,8 @@ def register(request):
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileInfoForm(data=request.POST)
         restaurant_form = RestaurantForm(data=request.POST)
-        if user_form.is_valid() and profile_form.is_valid() and restaurant_form.is_valid():
+        restaurant_address_form = RestaurantAddressForm(data=request.POST)
+        if user_form.is_valid() and profile_form.is_valid() and restaurant_form.is_valid() and restaurant_address_form.is_valid():
             user = user_form.save()
             user.set_password(user.password)
             user.is_staff = True
@@ -53,17 +54,23 @@ def register(request):
                 print('logo image found it')
                 restaurant.restaurant_logo = request.FILES['restaurant_logo']
 
+            restaurant_address = restaurant_address_form.save(commit=False)
+            restaurant_address.created_by = user
+            restaurant_address.save()
+            restaurant.address = restaurant_address
             restaurant.save()
 
         else:
-            print(user_form.errors, profile_form.errors, restaurant_form.errors)
+            print(user_form.errors, profile_form.errors, restaurant_form.errors, restaurant_address_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileInfoForm()
         restaurant_form = RestaurantForm()
+        restaurant_address_form = RestaurantAddressForm()
     return render(request, 'food_delivery/register.html',
                   {'user_form': user_form,
                    'restaurant_form': restaurant_form,
+                   'restaurant_address_form': restaurant_address_form,
                    'profile_form': profile_form,
                    'registered': registered})
 
