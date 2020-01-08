@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from Location.models import Address as UserAddress
-
+from gettingstarted.settings import MEDIA_URL
 # Create your models here.
 class UserProfileInfo(models.Model):
 
@@ -12,6 +12,9 @@ class UserProfileInfo(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_profile_pic_url(self):
+        return "{}{}".format(MEDIA_URL, self.profile_pic)
 
 
 

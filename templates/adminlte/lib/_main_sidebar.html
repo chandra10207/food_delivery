@@ -1,4 +1,5 @@
 {% load adminlte_helpers %}
+{% load get_sale_count %}
 {#{% load adminlte_helpers i18n %}#}
 {%load static %}
 <!-- Left side column. contains the sidebar -->
@@ -6,8 +7,15 @@
      <!-- Brand Logo -->
      <a href="/" class="brand-link">
 {#        <img src="{%static 'admin-lte/dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">#}
-        <img src="{%static 'fed_logo.png' %}" alt="Food Delivery Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Food Delivery</span>
+         {% if not request.user.is_superuser and request.user.restaurant_owner.first.restaurant_logo %}
+        <img src="{{MEDIA_URL}}{{ request.user.restaurant_owner.first.restaurant_logo }}" alt="Food Delivery Logo" class="brand-image img-circle">
+        <span class="brand-text font-weight-light">{{ request.user.restaurant_owner.first.name }}</span>
+       {% else %}
+         <img src="{%static 'fed_logo.png' %}" alt="Food Delivery Logo" class="brand-image img-circle">
+             <span class="brand-text font-weight-light">Food Delivery</span>
+         {% endif %}
+
+{#        <span class="brand-text font-weight-light">{% get_sale_count %}</span>#}
  {% if request.user.is_superuser %}
     <p class="brand-text1 font-weight-light" style="font-size: 14px;padding-left: 55px;">( Admin )</p>
 {% else %}
