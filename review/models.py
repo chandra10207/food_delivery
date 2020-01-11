@@ -22,8 +22,8 @@ class Review (models.Model):
     store_id = models.ForeignKey(Restaurant, related_name='reviews', on_delete=models.CASCADE)
     rating = models.IntegerField(choices=ONE_TO_TEN_RATING_CHOICES, default=1)
     created_on = models.DateTimeField(auto_now_add=True)
-    review_title = models.CharField("Title", max_length=140, null=True)
-    review_text = models.TextField("Review", null=True)
+    review_title = models.CharField("Title", max_length=140, null=True, blank=True)
+    review_text = models.TextField("Review", null=True, blank=True)
 
     def __str__(self):
         # return self.user_id.first_name
