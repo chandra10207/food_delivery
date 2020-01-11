@@ -7,6 +7,7 @@ from api.views import CustomObtainAuthToken
 from sales import views as sales_views
 from store_follower import views as store_follower_views
 from promocode import views as promo_views
+from review import views as review_views
 
 
 urlpatterns = [
@@ -18,6 +19,8 @@ urlpatterns = [
     path('order/<int:pk>', sales_views.OrderListDetailApi.as_view(), name="order-detail"),
     path('storefollowers/', store_follower_views.StoreFollowerListAPI.as_view()),
     path('storefollower/<int:pk>', store_follower_views.StoreFollowerDetailAPI.as_view(), name="order-detail"),
+    path('reviews/', review_views.ReviewsListAPI.as_view()),
+    path('review/<int:pk>', review_views.ReviewsDetailAPI.as_view(), name="order-detail"),
     path('promocodes/', promo_views.CouponListAPI.as_view()),
     path('promocode/', promo_views.UseCouponView.as_view()),
     # path('promocode/<int:pk>', store_follower_views.StoreFollowerDetailAPI.as_view(), name="order-detail"),

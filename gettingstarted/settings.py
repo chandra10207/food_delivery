@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     # 'django_google_maps',
     "promocode",
     "Location",
+    "review",
 
 ]
 
