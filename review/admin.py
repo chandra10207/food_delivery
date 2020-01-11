@@ -26,7 +26,7 @@ class ReviewAdmin(admin.ModelAdmin):
         else:
             restaurant = Restaurant.objects.get(owner=request.user)
             # return queryset.filter(owner=request.user)
-            return qs.filter(store_id=restaurant)
+            return qs.filter(restaurant_id=restaurant)
 
     # def get_readonly_fields(self, request, obj=None):
     #     fields = super().get_readonly_fields(request)
