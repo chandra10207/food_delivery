@@ -19,7 +19,7 @@ class ReviewsListAPI(generics.ListCreateAPIView):
             if Restaurant.objects.filter(id=restaurant_id).exists():
                 queryset = Review.objects.filter(store_id=restaurant_id)
             else:
-                content = {'errors': 'store id not exist'}
+                content = {'errors': 'restaurant id not exist'}
                 raise ValidationError(content)
         else:
             queryset = Review.objects.all()
