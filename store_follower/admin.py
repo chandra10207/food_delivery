@@ -9,7 +9,7 @@ from restaurant.models import Restaurant
 # Register your models here.
 
 class StoreFollowerAdmin(admin.ModelAdmin):
-    list_display = ['user_id', 'restaurant_id', 'followed_on','profile_link']
+    list_display = ['user_id', 'restaurant_id', 'followed_on','is_followed','profile_link']
 
     autocomplete_fields = ['user_id','restaurant_id']
 

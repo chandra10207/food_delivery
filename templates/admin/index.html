@@ -1,0 +1,481 @@
+{% extends "admin/index.html" %}
+{% load static %}
+{% load chart_sale %}
+{% load get_sale_count %}
+{% load get_sale_delivered_count %}
+{#{% load get_restaurant_sale_count %}#}
+{% block extrahead %}
+{#    <link rel="stylesheet" type="text/css" href="{{ static}}"/>#}
+    <link rel="stylesheet" href="{% static 'admin/css/custom.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+    <script>
+        var randomColorGenerator = function () {
+            return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+        };
+        var options = {
+            responsive: true,
+            maintainAspectRatio: true,
+            legend: {
+                position: 'left'
+            },
+            title: {
+                display: true
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        };
+        window.onload = function ($) {
+            var ctx = document.getElementById("gender-chart");
+            {% regroup cl.queryset|dictsort:"gender" by get_gender_display as gender_list %}
+            var lineChart = new Chart(ctx, {
+                type: 'doughnut',
+                {#type: 'bar',#}
+                label: 'bar',
+                data: {
+                    labels: [{% for gender in gender_list %}'{{ gender.grouper }}',{% endfor %}],
+                    datasets: [{
+                        data: [{% for gender in gender_list %}'{{ gender.list|length }}',{% endfor %}],
+                        backgroundColor: [{% for gender in gender_list %}randomColorGenerator(),{% endfor %}]
+                    }]
+                },
+                options: options
+            });
+            ctx = document.getElementById("language-chart");
+            {% regroup cl.queryset|dictsort:"grades" by grades as grades_list %}
+            lineChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [{% for grade in grades_list %}'{{ grade.grouper }}',{% endfor %}],
+                    datasets: [{
+                        data: [{% for grade in grades_list %}'{{ grade.list|length }}',{% endfor %}],
+                        backgroundColor: [{% for grades in grades_list %}randomColorGenerator(),{% endfor %}]
+                    }]
+                }, options: options
+            });
+            ctx = document.getElementById("grades-chart");
+            {% regroup cl.queryset|dictsort:"language" by get_language_display as language_list %}
+            lineChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [{% for language in language_list %}'{{ language.grouper }}',{% endfor %}],
+                    datasets: [{
+                        data: [{% for language in language_list %}'{{ language.list|length }}',{% endfor %}],
+                        backgroundColor: [{% for language` in language_list %}randomColorGenerator(),{% endfor %}]
+                    }]
+                }, options: options
+            });
+
+
+
+
+    //--------------
+    //- AREA CHART -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+    var areaChartCanvas = jQuery('#areaChart').get(0).getContext('2d')
+
+    var areaChartData = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label               : 'Digital Goods',
+          backgroundColor     : 'rgba(60,141,188,0.9)',
+          borderColor         : 'rgba(60,141,188,0.8)',
+          pointRadius          : false,
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : [28, 48, 40, 19, 86, 27, 90]
+        },
+        {
+          label               : 'Electronics',
+          backgroundColor     : 'rgba(210, 214, 222, 1)',
+          borderColor         : 'rgba(210, 214, 222, 1)',
+          pointRadius         : false,
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : [65, 59, 80, 81, 56, 55, 40]
+        },
+      ]
+    }
+
+    var areaChartOptions = {
+      maintainAspectRatio : false,
+      responsive : true,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }],
+        yAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }]
+      }
+    }
+
+    // This will get the first returned node in the jQuery collection.
+    var areaChart = new Chart(areaChartCanvas, {
+      type: 'line',
+      data: areaChartData,
+      options: areaChartOptions
+    })
+
+
+
+    //-------------
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var pieChartCanvas = jQuery('#pieChart').get(0).getContext('2d')
+    var pieData        = {
+      labels: [
+          'Completed',
+          'Canceled',
+          'Accepted',
+          'Delivering',
+          'Pending',
+          'Processing',
+      ],
+      datasets: [
+        {
+          data: [700,500,400,600,300,100],
+          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }
+      ]
+    }
+    var pieOptions     = {
+      maintainAspectRatio : false,
+      responsive : true,
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    var pieChart = new Chart(pieChartCanvas, {
+      type: 'pie',
+      data: pieData,
+      options: pieOptions
+    })
+
+
+        }
+
+
+
+
+
+    </script>
+{% endblock %}
+{% block breadcrumbs %}
+
+              {% get_sale_count user as total_sales_count %}
+              {% get_sale_total user as total_sales %}
+              {% store_followers user as total_followers %}
+              {% food_count user as total_food_count %}
+              {% get_restaurant_total as total_restaurants %}
+              {% get_sale_completed_count  as completed_sale %}
+{#              {% get_restaurant_sale_count user  as rest_sale %}#}
+
+
+        <!-- Small boxes (Stat box) -->
+        <div class="row dashboard">
+        <div class="col-md-12">
+
+            <h1 style="font-size:24px; font-weight:700;margin-bottom:15px;"> Sales Summary </h1>
+        </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ total_sales_count }}</h3>
+
+                <p>Total Orders</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="/admin/sales/order/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                  {% if request.user.is_superuser %}
+    <h3>${{ total_sales.order_total__sum }}<sup style="font-size: 20px"></sup></h3>
+{% else %}
+  <h3>${{ total_sales.seller_total__sum }}<sup style="font-size: 20px"></sup></h3>
+{% endif %}
+
+
+
+                <p>Total Earned</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="/admin/sales/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+
+
+                  {% if request.user.is_superuser %}
+
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ total_restaurants }}</h3>
+
+                <p>Total Restaurants</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="/admin/restaurant/restaurant/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+
+
+
+{% else %}
+
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ total_followers }}</h3>
+
+                <p>Store Followers</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-person-add"></i>
+              </div>
+              <a href="/admin/store_follower/storefollower/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+
+{% endif %}
+
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ total_food_count }}</h3>
+
+                <p>Available Food Items</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+{#                <i class="ion ion-md-pizza"></i>#}
+              </div>
+              <a href="/admin/food/food/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <!-- Left col -->
+          <section class="col-lg-7 connectedSortable">
+            <!-- AREA CHART -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Sales Over Time</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="areaChart" style="height:250px; min-height:250px"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </section>
+        <section class="col-lg-5">
+
+
+            <!-- PIE CHART -->
+            <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Orders Status</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
+              </div>
+              <div class="card-body">
+                <canvas id="pieChart" style="height:230px; min-height:230px"></canvas>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </section>
+        </div>
+        <!-- /.row -->
+    <div style="margin-bottom:30px; padding:10px 40px;" class="row">
+        <div class="col-md-12">
+            <h1> Sales Summary </h1>
+              {% get_sale_count user  as total_sales %}
+              {% get_sale_completed_count  as completed_sale %}
+
+            total sales: {{ total_sales }}
+            total sales completed: {{ completed_sale }}
+            total sales restaurant: {{ rest_sale }}
+{#            total sales completed: {{ request.user.id }}#}
+            <hr>
+        </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+{#            <span class="info-box-icon bg-aqua"><i class="fa fa-dashboard"></i></span>#}
+
+            <div class="info-box-content">
+              <span class="info-box-text">CPU Traffic</span>
+              <span class="info-box-number">90<small>%</small></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+
+    <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>150</h3>
+
+              <p>New Orders</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <div class="alert alert-info" role="alert">
+  This is a info alert—check it out!
+</div>
+            <span class="badge badge-info">Info</span>
+            <div class="badge badge-info alert alert-info" id="sale-completed" style="width: 100% !important;">
+                <h2>{{ completed_sale }}</h2>
+                <p>Total Competed Sales</p>
+
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <canvas id="language-chart" style="width: 100px !important;"></canvas>
+        </div>
+        <div class="col-sm-4">
+            <canvas id="grades-chart" style="width: 100px !important;"></canvas>
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <canvas id="gender-chart" style="width: 100px !important;"></canvas>
+        </div>
+        <div class="col-sm-4">
+            <canvas id="language-chart" style="width: 100px !important;"></canvas>
+        </div>
+        <div class="col-sm-4">
+            <canvas id="grades-chart" style="width: 100px !important;"></canvas>
+        </div>
+
+
+{#   {%  if chart_sal?e  %}#}
+
+
+        <div class="col-md-12">
+
+            {% chart_sale 2019 as summary %}
+            <table style="width:100%;">
+            <thead>
+            <tr>
+            <th>
+            <div class=”text”>
+            <p><strong>Period</strong></p>
+            </div>
+            </th>
+            <th>
+            <div class=”text”>
+            <p><strong>Count</strong></p>
+            </div>
+            </th>
+            <th>
+            <div class=”text”>
+            <p><strong>Percentage</strong></p>
+            </div>
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in summary.summary %}
+            <tr>
+            <td> {{ row.period }} </td>
+            <td> {{ row.total }} </td>
+            <td> {{ row.percent }}% </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+
+
+        {% chart_sale 2019 as summary %}
+            <div class="bar-chart" style="height:300px;">
+            {% for x in summary.summary %}
+            <div class="element">
+            <div class="bar" style="height:{{x.percent}}%"></div>
+            <div style="align-items: center;">
+            <p style="font-size: 12px;">
+            {{ x.period }}
+            </p>
+            </div>
+            </div>
+            {% endfor %}
+            </div>
+
+
+        </div>
+    </div>
+
+{#{% endif %}#}
+
+{#    {{ block.super }}#}
+{% endblock %}
+
+
+
+

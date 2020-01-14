@@ -6,6 +6,8 @@ select[multiple] {
     background-color: #157af6;}
 
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove,
+.dashboard .small-box  h3
+{
     color: #fff;}
 

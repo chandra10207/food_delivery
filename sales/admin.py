@@ -29,10 +29,11 @@ class StudentAdmin(admin.ModelAdmin):
 # @admin.register(Customer)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['user_id', 'seller_total', 'seller_id',"order_status",'created_on', 'completed_on']
-    search_fields = ['user_id']
+    search_fields = ['order_status']
     readonly_fields = ['user_id','seller_id','seller_total']
     normaluser_fields = ['user_id', 'seller_total', 'seller_id',"order_status", 'completed_on']
     superuser_fields = ['order_total']
+    list_filter = ('order_status',)
     # search_fields = ['user_id']
     # autocomplete_fields = ['owner','restaurant','addons']
     # autocomplete_fields = ['addons']

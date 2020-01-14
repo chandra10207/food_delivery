@@ -68,8 +68,8 @@ class Student(models.Model):
 class Order(models.Model):
     user_id = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
     order_total = models.DecimalField(max_digits=10, decimal_places=2)
-    seller_total = models.DecimalField(max_digits=10, decimal_places=2)
-    seller_id = models.ForeignKey(Restaurant, related_name='restaurant', on_delete=models.CASCADE)
+    seller_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    seller_id = models.ForeignKey(Restaurant, related_name='orders', on_delete=models.CASCADE)
     order_status =  models.CharField(max_length=40, choices=ORDER_STATUS, default='processing')
     created_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(null=True, blank=True)
@@ -83,9 +83,9 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
-    food_id = models.ForeignKey(Food, related_name='food', on_delete=models.CASCADE)
-    order_item_name = models.CharField('Item Name', max_length=50)
+    order_id = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
+    food_id = models.ForeignKey(Food, related_name='order_items', on_delete=models.CASCADE)
+    order_item_name = models.CharField('Item Name', max_length=50, null=True, blank=True)
     quantity = models.PositiveSmallIntegerField('Quantiy', default=1)
     item_price = models.DecimalField(max_digits=10, decimal_places=2)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)

@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
         # restaurant_
         # model = models.CustomUser
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'profile', 'followed_stores','orders')
+        fields = ('id', 'email', 'username', 'first_name', 'last_name','groups', 'profile', 'followed_stores','orders')
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
@@ -43,7 +43,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
         # restaurant_
         # model = models.CustomUser
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'profile', 'followed_stores','orders')
+        fields = ('id', 'email', 'username', 'first_name', 'last_name','groups', 'profile', 'followed_stores','orders')
 
 
 # class CustomRestRegisterSerializer(serializers.ModelSerializer):
@@ -65,6 +65,7 @@ class RegisterSerializer(serializers.Serializer):
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
     password = serializers.CharField(required=True, write_only=True)
+    is_driver = serializers.NullBooleanField(required=False)
     # password2 = serializers.CharField(required=True, write_only=True)
 
     def validate_username(self, username):
@@ -106,11 +107,16 @@ class RegisterSerializer(serializers.Serializer):
     def save(self, request):
         adapter = get_adapter()
         user = adapter.new_user(request)
+        # data = request.DATA
+        # breakpoint()
         self.cleaned_data = self.get_cleaned_data()
         adapter.save_user(request, user, self)
         setup_user_email(request, user, [])
         # user.profile.save()
-        group = Group.objects.get(name='Customer')
+        if self.data['is_driver']:
+            group = Group.objects.get(name='Delivery Person')
+        else:
+            group = Group.objects.get(name='Customer')
         user.groups.add(group)
         user.save()
         return user
