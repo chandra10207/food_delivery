@@ -41,7 +41,7 @@ class Food(models.Model):
     # owner = models.ForeignKey(User, related_name='foods', editable=False, on_delete=models.CASCADE)
     owner = models.ForeignKey(User, related_name='foods', on_delete=models.CASCADE)
     # toppings = models.ManyToManyField(Addon, blank=True, through='ToppingAmount', related_name='foods')
-    addons = models.ManyToManyField(Addon , blank=True)
+    addons = models.ManyToManyField(Addon, blank=True)
 
     # usertest = models.ForeignKey(User, related_name='foods',  on_delete=models.CASCADE)
 

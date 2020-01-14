@@ -3,7 +3,8 @@ from django.db import models
 from django import forms
 # from django_google_maps import fields as map_fields
 from Location.models import Address
-
+from django.utils.html import mark_safe
+from django.conf import settings
 
 class ImageUploadForm(forms.Form):
     """Image upload form."""
@@ -33,6 +34,10 @@ class Restaurant(models.Model):
     # address1 = AddressField(blank=True, null=True)
     # address2 = AddressField(related_name='+', blank=True, null=True)
     # highlighted = models.TextField()
+
+    def restaurant_logo_tag(self):
+        return mark_safe('<img class="user-image img-circle" src="%s%s" width="80" height="80" />' % (settings.MEDIA_URL , self.restaurant_logo))
+    restaurant_logo_tag.short_description = 'Restaurant Logo'
 
     def __str__(self):
         return self.name

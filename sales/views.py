@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from sales.models import Order
 from sales.models import OrderItem
 from sales.models import OrderItemMeta
-from sales.serializers import OrderSerializer
+from sales.serializers import OrderSerializer, OrderDetailSerializer, OrderItemSerializer
 from rest_framework import generics
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -19,6 +19,45 @@ class OrderListApi(generics.ListCreateAPIView):
     def get_queryset(self):
         params = self.request.query_params
         # breakpoint()
+        user_id = params.get('user_id')
+        status = params.get('order_status')
+        if user_id and status:
+            if User.objects.filter(id=user_id).exists():
+                queryset = Order.objects.filter(user_id=user_id).filter(order_status=status)
+
+            else:
+                content = {'errors': 'user id not exist'}
+                raise ValidationError(content)
+
+        elif user_id:
+            if User.objects.filter(id=user_id).exists():
+                queryset = Order.objects.filter(user_id=user_id)
+            else:
+                content = {'errors': 'user id not exist'}
+                raise ValidationError(content)
+
+        elif status:
+            if Order.objects.filter(order_status=status).exists():
+                queryset = Order.objects.filter(order_status=status)
+            else:
+                content = {'errors': 'Order status not exist'}
+                raise ValidationError(content)
+        else:
+            queryset = Order.objects.all()
+        return queryset
+    serializer_class = OrderDetailSerializer
+
+
+class OrderListDetailApi(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderDetailSerializer
+
+
+class OrderItemListApi(generics.ListCreateAPIView):
+
+    def get_queryset(self):
+        params = self.request.query_params
+        # breakpoint()
         user_id = self.request.query_params.get('user_id')
         if user_id:
             if User.objects.filter(id=user_id).exists():
@@ -27,14 +66,14 @@ class OrderListApi(generics.ListCreateAPIView):
                 content = {'errors': 'user id not exist'}
                 raise ValidationError(content)
         else:
-            queryset = Order.objects.all()
+            queryset = OrderItem.objects.all()
         return queryset
-    serializer_class = OrderSerializer
+    serializer_class = OrderItemSerializer
 
 
-class OrderListDetailApi(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+class OrderItemDetailApi(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderDetailSerializer
 
 
 def index(request):

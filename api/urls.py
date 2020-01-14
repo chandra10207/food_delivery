@@ -17,6 +17,8 @@ urlpatterns = [
     path('user/<int:pk>/orders', api_views.UserOrdersAPI.as_view(), name="user-orders"),
     path('orders/', sales_views.OrderListApi.as_view()),
     path('order/<int:pk>', sales_views.OrderListDetailApi.as_view(), name="order-detail"),
+    path('order_item/', sales_views.OrderItemListApi.as_view()),
+    # path('order_item/<int:pk>', sales_views.OrderListDetailApi.as_view(), name="order-detail"),
     path('storefollowers/', store_follower_views.StoreFollowerListAPI.as_view()),
     path('storefollower/<int:pk>', store_follower_views.StoreFollowerDetailAPI.as_view(), name="order-detail"),
     path('reviews/', review_views.ReviewsListAPI.as_view()),

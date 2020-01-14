@@ -40,7 +40,7 @@ class CountryFilter(SimpleListFilter):
 class FoodAdmin(admin.ModelAdmin):
     # date_hierarchy = 'pub_date'
     # list_display = ('full_name', 'langugae', 'grades', 'gender')
-    list_display = ('name', 'regular_price', 'restaurant', 'owner')
+    list_display = ('id', 'name', 'regular_price', 'restaurant', 'owner')
     # list_filter = (CountryFilter,)
     ordering = ['name']
     # list_filter = ('langugae', 'gender', 'grades')
@@ -119,7 +119,7 @@ admin.site.register(Food, FoodAdmin)
 
 # @admin.register(Customer)
 class AddonAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'created_by']
+    list_display = ['id', 'name', 'price', 'created_by']
     search_fields = ['name']
 
 

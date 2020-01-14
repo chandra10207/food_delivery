@@ -13,7 +13,7 @@ class RestaurantAdmin(admin.ModelAdmin):
     # formfield_overrides = {
     #     map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
     # }
-    list_display = ['name', 'owner']
+    list_display = ['id', 'name', 'owner']
     normaluser_fields = ['name','address','email','website','content','restaurant_logo','restaurant_banner_image']
     superuser_fields = ['owner']
     search_fields = ['name']
