@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "promocode",
     "Location",
     "review",
+    "commission",
 
 ]
 
