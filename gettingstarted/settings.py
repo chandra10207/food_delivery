@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     "Location",
     "review",
     "commission",
+    "tax",
 
 ]
 
