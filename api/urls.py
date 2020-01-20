@@ -8,6 +8,7 @@ from sales import views as sales_views
 from store_follower import views as store_follower_views
 from promocode import views as promo_views
 from review import views as review_views
+from tax import views as tax_views
 
 
 urlpatterns = [
@@ -25,6 +26,9 @@ urlpatterns = [
     path('review/<int:pk>', review_views.ReviewsDetailAPI.as_view(), name="order-detail"),
     path('promocodes/', promo_views.CouponListAPI.as_view()),
     path('promocode/', promo_views.UseCouponView.as_view()),
+    path('tax/', tax_views.TaxListAPI.as_view()),
+
+
     # path('promocode/<int:pk>', store_follower_views.StoreFollowerDetailAPI.as_view(), name="order-detail"),
 
     # path('users/', api_views.UserListView.as_view()),
