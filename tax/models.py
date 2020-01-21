@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Tax(models.Model):
-    tax_percentage = models.IntegerField(default=0, verbose_name="Comission")
+    tax_percentage = models.IntegerField(default=0, verbose_name="Tax Percentage")
     # is_percentage = models.BooleanField(default=False, verbose_name="Is percentage?")
 
     def __str__(self):

@@ -8,7 +8,7 @@ from tax.models import Tax
 # Create your views here.
 
 
-class TaxListAPI(generics.ListCreateAPIView):
+class TaxListAPI(generics.ListAPIView):
 
     # def get_queryset(self):
     #     params = self.request.query_params
