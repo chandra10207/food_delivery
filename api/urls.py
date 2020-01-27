@@ -10,6 +10,7 @@ from promocode import views as promo_views
 from review import views as review_views
 from tax import views as tax_views
 from food_delivery import views as profile_views
+from dispute import views as dispute_views
 
 
 urlpatterns = [
@@ -32,6 +33,8 @@ urlpatterns = [
     path('tax/', tax_views.TaxListAPI.as_view()),
     path('user_profiles/', profile_views.UserProfileList.as_view()),
     path('user_profile/<int:pk>', profile_views.UserProfile.as_view()),
+    path('disputes/', dispute_views.DisputeListApi.as_view()),
+    path('dispute/<int:pk>', dispute_views.DisputeDetailApi.as_view()),
 
 
     # path('promocode/<int:pk>', store_follower_views.StoreFollowerDetailAPI.as_view(), name="order-detail"),

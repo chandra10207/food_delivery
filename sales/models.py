@@ -77,7 +77,7 @@ class Order(models.Model):
 
     def __str__(self):
         # return self.user_id.first_name
-        return "Order ID: {} - User Name: {} - Total: ${}".format(str(self.id), self.user_id.first_name, self.order_total)
+        return "Order: {} - User: {} - Total: ${}".format(str(self.id), self.user_id.first_name, self.order_total)
 
     class Meta:
         verbose_name = ('Order')
