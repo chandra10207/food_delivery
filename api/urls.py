@@ -9,6 +9,7 @@ from store_follower import views as store_follower_views
 from promocode import views as promo_views
 from review import views as review_views
 from tax import views as tax_views
+from food_delivery import views as profile_views
 
 
 urlpatterns = [
@@ -16,6 +17,8 @@ urlpatterns = [
     path('users/', api_views.UserListView.as_view()),
     path('user/<int:pk>', api_views.UserDetailView.as_view(), name="user-detail"),
     path('user/<int:pk>/orders', api_views.UserOrdersAPI.as_view(), name="user-orders"),
+    # path('user/<int:pk>/profile', profile_views.UserProfile.as_view(), name="profile"),
+    path('user/<user_id>/profile/', profile_views.ProfileAPI.as_view(), name="profile"),
     path('orders/', sales_views.OrderListApi.as_view()),
     path('order/<int:pk>', sales_views.OrderListDetailApi.as_view(), name="order-detail"),
     path('order_item/', sales_views.OrderItemListApi.as_view()),
@@ -27,6 +30,8 @@ urlpatterns = [
     path('promocodes/', promo_views.CouponListAPI.as_view()),
     path('promocode/', promo_views.UseCouponView.as_view()),
     path('tax/', tax_views.TaxListAPI.as_view()),
+    path('user_profiles/', profile_views.UserProfileList.as_view()),
+    path('user_profile/<int:pk>', profile_views.UserProfile.as_view()),
 
 
     # path('promocode/<int:pk>', store_follower_views.StoreFollowerDetailAPI.as_view(), name="order-detail"),

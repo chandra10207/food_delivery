@@ -4,8 +4,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth.models import Group
+from rest_framework import generics
+from food_delivery.models import UserProfileInfo
+from food_delivery.serializers import ProfileSerializer
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from .models import User
+
 
 def index(request):
     return render(request, 'food_delivery/index.html')
@@ -93,3 +101,24 @@ def user_login(request):
             return HttpResponse("Invalid login details given")
     else:
         return render(request, 'food_delivery/login.html', {})
+
+
+# Create your views here.
+
+class UserProfileList(generics.ListCreateAPIView):
+    queryset = UserProfileInfo.objects.all()
+    serializer_class = ProfileSerializer
+
+
+class UserProfile(generics.RetrieveUpdateDestroyAPIView):
+    # queryset = UserProfileInfo.objects.all()
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        return UserProfileInfo.objects.filter(user=self.kwargs['user_id'])
+
+class ProfileAPI(APIView):
+    def get(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=kwargs['user_id'])
+        profile_serializer = ProfileSerializer(user.profile)
+        return Response(profile_serializer.data)

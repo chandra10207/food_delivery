@@ -45,7 +45,7 @@ class OrderListApi(generics.ListCreateAPIView):
         else:
             queryset = Order.objects.all()
         return queryset
-    serializer_class = OrderDetailSerializer
+    serializer_class = OrderSerializer
 
 
 class OrderListDetailApi(generics.RetrieveUpdateDestroyAPIView):

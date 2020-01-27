@@ -46,6 +46,8 @@ class UserDetailSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'username', 'first_name', 'last_name','groups', 'profile', 'followed_stores','orders')
 
 
+
+
 # class CustomRestRegisterSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         # model = models.CustomUser

@@ -24,7 +24,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         # model = models.CustomUser
         model = Order
-        fields = ('id','user_id', 'order_total', 'seller_total', 'seller_id', 'order_status','created_on','completed_on','order_items')
+        fields = ('id','user_id', 'order_total', 'seller_total', 'seller_id', 'order_status','created_on','completed_on')
 
 
 class OrderDetailSerializer(serializers.ModelSerializer):

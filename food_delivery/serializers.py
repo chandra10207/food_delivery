@@ -8,4 +8,5 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfileInfo
-        fields = ['portfolio_site', 'profile_pic', 'address']
+        # fields = "__all__"
+        fields = ['id', 'phone', 'portfolio_site', 'profile_pic', 'address']
