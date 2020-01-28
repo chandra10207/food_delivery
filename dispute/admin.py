@@ -73,15 +73,16 @@ class DisputeAdmin(admin.ModelAdmin):
         # breakpoint()
         return self.order_id.seller_id
 
-    # def get_queryset(self, request):
-    #     qs = super(DisputeAdmin, self).get_queryset(request)
-    #     if request.user.is_superuser:
-    #         return qs
-    #     else:
-    #         restaurant = Restaurant.objects.get(owner=request.user)
-    #         # restaurantID = self.get_restaurant_id(request)
-    #         # breakpoint()
-    #         # return qs.filter(order_id.seller_id == restaurant.id)
-    #         return qs
+    def get_queryset(self, request):
+        qs = super(DisputeAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        else:
+            restaurant = Restaurant.objects.get(owner=request.user)
+            # restaurantID = self.get_restaurant_id(request)
+            # breakpoint()
+            # return qs.filter(order_id.seller_id == restaurant.id)
+            return qs.filter(order_id__seller_id= restaurant.id)
+            # return qs
 
 admin.site.register(Dispute, DisputeAdmin)
