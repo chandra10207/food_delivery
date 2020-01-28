@@ -14,5 +14,5 @@ class Comission(models.Model):
         return "${0} - Comission".format(self.comission)
 
     class Meta:
-        verbose_name = "Comission"
-        verbose_name_plural = "Comission"
+        verbose_name = "Admin Comission"
+        verbose_name_plural = "Admin Comission"
