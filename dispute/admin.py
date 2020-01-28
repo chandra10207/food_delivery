@@ -7,12 +7,12 @@ from restaurant.models import Restaurant
 
 
 class DisputeAdmin(admin.ModelAdmin):
-    list_display = ['order_id', 'user_id', 'user_message',"admin_message","status",'created_on', 'closed_on']
+    list_display = ['order_id', 'user_id', 'user_message', "admin_message", "status", 'created_on', 'closed_on']
     search_fields = ['user_message']
     readonly_fields = ['user_id','order_id','user_message',]
-    normaluser_fields = ['user_id', 'seller_total', 'seller_id',"order_status", 'closed_on']
-    superuser_fields = ['order_total']
-    list_filter = ('status',)
+    # normaluser_fields = ['user_id', 'seller_total', 'seller_id',"order_status", 'closed_on']
+    # superuser_fields = ['order_total']
+    list_filter = ('user_message',)
     # search_fields = ['user_id']
     # autocomplete_fields = ['owner','restaurant','addons']
     # autocomplete_fields = ['addons']

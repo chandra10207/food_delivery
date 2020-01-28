@@ -15,36 +15,36 @@ from dispute.serializers import DisputeSerializer, DisputeDetailSerializer
 
 class DisputeListApi(generics.ListCreateAPIView):
 
-    # def get_queryset(self):
-    #     params = self.request.query_params
-    #     # breakpoint()
-    #     user_id = params.get('user_id')
-    #     status = params.get('order_status')
-    #     if user_id and status:
-    #         if User.objects.filter(id=user_id).exists():
-    #             queryset = Order.objects.filter(user_id=user_id).filter(order_status=status)
-    #
-    #         else:
-    #             content = {'errors': 'user id not exist'}
-    #             raise ValidationError(content)
-    #
-    #     elif user_id:
-    #         if User.objects.filter(id=user_id).exists():
-    #             queryset = Order.objects.filter(user_id=user_id)
-    #         else:
-    #             content = {'errors': 'user id not exist'}
-    #             raise ValidationError(content)
-    #
-    #     elif status:
-    #         if Order.objects.filter(order_status=status).exists():
-    #             queryset = Order.objects.filter(order_status=status)
-    #         else:
-    #             content = {'errors': 'Order status not exist'}
-    #             raise ValidationError(content)
-    #     else:
-    #         queryset = Order.objects.all()
-    #     return queryset
-    queryset = Dispute.objects.all()
+    def get_queryset(self):
+        params = self.request.query_params
+        # breakpoint()
+        user_id = params.get('user_id')
+        status = params.get('status')
+        if user_id and status:
+            if User.objects.filter(id=user_id).exists():
+                queryset = Dispute.objects.filter(user_id=user_id).filter(status=status)
+
+            else:
+                content = {'errors': 'user id not exist'}
+                raise ValidationError(content)
+
+        elif user_id:
+            if User.objects.filter(id=user_id).exists():
+                queryset = Dispute.objects.filter(user_id=user_id)
+            else:
+                content = {'errors': 'user id not exist'}
+                raise ValidationError(content)
+
+        elif status:
+            if Dispute.objects.filter(status=status).exists():
+                queryset = Dispute.objects.filter(order_status=status)
+            else:
+                content = {'errors': 'Order status not exist'}
+                raise ValidationError(content)
+        else:
+            queryset = Dispute.objects.all()
+        return queryset
+    # queryset = Dispute.objects.all()
     serializer_class = DisputeSerializer
 
 
