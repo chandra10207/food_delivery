@@ -43,7 +43,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
         # restaurant_
         # model = models.CustomUser
         model = User
-        fields = ('id', 'email', 'username', 'first_name', 'last_name','groups', 'profile', 'followed_stores','orders')
+        fields = ('id', 'email', 'username', 'first_name', 'last_name', 'groups', 'profile', 'followed_stores','orders')
 
 
 

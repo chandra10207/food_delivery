@@ -66,8 +66,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
     'rest_auth.registration',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
     # 'django_google_maps',
     "promocode",
     "Location",
@@ -139,7 +140,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 #     "allauth.account.auth_backends.AuthenticationBackend",
 # )
 
-
+OLD_PASSWORD_FIELD_ENABLED = True
 REST_SESSION_LOGIN = True
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1

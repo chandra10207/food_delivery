@@ -13,6 +13,12 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from sales.models import Order
 from sales.serializers import OrderSerializer
 
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
+
 
 class UserListView(generics.ListAPIView):
     # queryset = models.CustomUser.objects.all()

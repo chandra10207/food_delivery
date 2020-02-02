@@ -3,7 +3,7 @@ from django.urls import include, path
 from api import views as api_views
 from rest_framework.authtoken import views
 from django.conf.urls import url
-from api.views import CustomObtainAuthToken
+from api.views import CustomObtainAuthToken, FacebookLogin
 from sales import views as sales_views
 from store_follower import views as store_follower_views
 from promocode import views as promo_views
@@ -11,6 +11,7 @@ from review import views as review_views
 from tax import views as tax_views
 from food_delivery import views as profile_views
 from dispute import views as dispute_views
+
 
 
 urlpatterns = [
@@ -44,6 +45,7 @@ urlpatterns = [
     # path('rest-auth/registration/', include('rest_auth.registration.urls')),
    url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+   url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
     # url(r'^user/$', UserDetailsView.as_view(), name='rest_user_details'),
 
     # path('customer_login/', views.customer_login),

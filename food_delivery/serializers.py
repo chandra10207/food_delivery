@@ -9,4 +9,4 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfileInfo
         # fields = "__all__"
-        fields = ['id', 'phone', 'portfolio_site', 'profile_pic', 'address']
+        fields = ['id', 'user', 'phone', 'portfolio_site', 'profile_pic', 'address']
