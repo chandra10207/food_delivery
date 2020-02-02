@@ -17,6 +17,15 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = ('id','order_id', 'food_id', 'quantity', 'item_price','total_price','addons')
 
 
+class OrderItemDetailSerializer(serializers.ModelSerializer):
+
+    food_id = FoodSerializer( read_only=True)
+
+    class Meta:
+        # model = models.CustomUser
+        model = OrderItem
+        fields = ('id','order_id', 'food_id', 'quantity', 'item_price','total_price','addons')
+
 class OrderSerializer(serializers.ModelSerializer):
 
     # restaurant = JustRestaurantSerializer(read_only=True)
@@ -33,7 +42,7 @@ class OrderSerializer(serializers.ModelSerializer):
 class OrderDetailSerializer(serializers.ModelSerializer):
 
     # order_items = OrderItemSerializer(many=True, read_only=True)
-    order_items = OrderItemSerializer(many=True,read_only=True)
+    order_items = OrderItemDetailSerializer(many=True,read_only=True)
     seller_id = JustRestaurantSerializer(read_only=True)
 
     class Meta:
