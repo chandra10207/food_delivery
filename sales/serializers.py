@@ -9,7 +9,7 @@ from restaurant.serializers import JustRestaurantSerializer
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
-    food_id = FoodSerializer( read_only=True)
+    # food_id = FoodSerializer( read_only=True)
 
     class Meta:
         # model = models.CustomUser
