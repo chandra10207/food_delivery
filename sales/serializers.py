@@ -3,7 +3,7 @@ from rest_framework.relations import StringRelatedField
 from sales.models import Order
 from sales.models import OrderItem
 from sales.models import OrderItemMeta
-from food.serializers import FoodSerializer
+from food.serializers import JustFoodSerializer
 from restaurant.serializers import JustRestaurantSerializer
 
 
@@ -20,6 +20,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
 
     # restaurant = JustRestaurantSerializer(read_only=True)
+
+    # food_id = FoodSerializer( read_only=True)
 
     class Meta:
         # model = models.CustomUser

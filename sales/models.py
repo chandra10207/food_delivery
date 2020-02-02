@@ -67,6 +67,7 @@ class Student(models.Model):
 
 class Order(models.Model):
     user_id = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
+    order_name = models.CharField('Order Name', max_length=50, null=True, blank=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2)
     seller_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     seller_id = models.ForeignKey(Restaurant, related_name='orders', on_delete=models.CASCADE)
