@@ -7,9 +7,6 @@ from food.serializers import FoodSerializer
 from restaurant.serializers import JustRestaurantSerializer
 
 
-
-
-
 class OrderItemSerializer(serializers.ModelSerializer):
 
     # food_id = FoodSerializer( read_only=True)
@@ -22,6 +19,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
 
+    # restaurant = JustRestaurantSerializer(read_only=True)
+
     class Meta:
         # model = models.CustomUser
         model = Order
@@ -33,8 +32,6 @@ class OrderDetailSerializer(serializers.ModelSerializer):
     # order_items = OrderItemSerializer(many=True, read_only=True)
     order_items = OrderItemSerializer(many=True,read_only=True)
     seller_id = JustRestaurantSerializer(read_only=True)
-
-
 
     class Meta:
         # model = models.CustomUser
