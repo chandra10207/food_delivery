@@ -115,10 +115,13 @@ class UserProfile(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
-        return UserProfileInfo.objects.filter(user=self.kwargs['user_id'])
+        # user_id = self.kwargs['user_id']
+        # if user_id:
+        #     return UserProfileInfo.objects.filter(user=self.kwargs['user_id'])
+        return UserProfileInfo.objects.all()
 
 class ProfileAPI(APIView):
     def get(self, request, *args, **kwargs):
-        user = get_object_or_404(User, pk=kwargs['user_id'])
+        user = get_object_or_404(User, pk=kwargs['user'])
         profile_serializer = ProfileSerializer(user.profile)
         return Response(profile_serializer.data)

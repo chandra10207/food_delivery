@@ -20,7 +20,7 @@ urlpatterns = [
     path('user/<int:pk>', api_views.UserDetailView.as_view(), name="user-detail"),
     path('user/<int:pk>/orders', api_views.UserOrdersAPI.as_view(), name="user-orders"),
     # path('user/<int:pk>/profile', profile_views.UserProfile.as_view(), name="profile"),
-    path('user/<user_id>/profile/', profile_views.ProfileAPI.as_view(), name="profile"),
+    path('user/<user_id>/profile/', profile_views.UserProfile.as_view(), name="profile"),
     path('orders/', sales_views.OrderListApi.as_view()),
     path('order/<int:pk>', sales_views.OrderListDetailApi.as_view(), name="order-detail"),
     path('order_item/', sales_views.OrderItemListApi.as_view()),
@@ -34,6 +34,7 @@ urlpatterns = [
     path('tax/', tax_views.TaxListAPI.as_view()),
     path('user_profiles/', profile_views.UserProfileList.as_view()),
     path('user_profile/<int:pk>', profile_views.UserProfile.as_view()),
+    path('user_profile/', profile_views.ProfileAPI.as_view()),
     path('disputes/', dispute_views.DisputeListApi.as_view()),
     path('dispute/<int:pk>', dispute_views.DisputeDetailApi.as_view()),
 
