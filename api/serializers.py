@@ -58,7 +58,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
         address_data = profile_data.pop('address')
         address_obj = Address.objects.create(created_by=user)
         profile_obj = instance.profile
-        breakpoint()
+        # breakpoint()
         # address_list = list(addresses)
         profile_obj.phone = profile_data.get('phone', profile_obj.phone)
         address_obj.unit = address_data.get('unit')
