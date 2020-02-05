@@ -29,7 +29,8 @@ class OrderItemDetailSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
 
     # restaurant = JustRestaurantSerializer(read_only=True)
-    order_items = OrderItemSerializer(many=True,read_only=True)
+    # order_items = OrderItemSerializer(many=True,read_only=True)
+    order_items = OrderItemDetailSerializer(many=True,read_only=True)
 
     # food_id = FoodSerializer( read_only=True)
 
