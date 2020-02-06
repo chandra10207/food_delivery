@@ -7,6 +7,15 @@ from store_follower.serializers import StoreFollowerSerializer
 from Location.serializers import AddressSerializer
 from review.serializers import ReviewSerializer
 
+
+class RestaurantInfoSerializer(serializers.ModelSerializer):
+    # average_rating_value = serializers.DecimalField(source='average_rating',max_digits=10, decimal_places=2)
+
+    class Meta:
+        model = Restaurant
+        fields = ("id", "name", "content", "restaurant_banner_image", "restaurant_logo", "owner")
+
+
 class JustRestaurantSerializer(serializers.ModelSerializer):
     # average_rating_value = serializers.DecimalField(source='average_rating',max_digits=10, decimal_places=2)
 

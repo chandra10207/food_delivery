@@ -17,12 +17,12 @@ class ReviewsListAPI(generics.ListCreateAPIView):
         restaurant_id = self.request.query_params.get('restaurant_id')
         if restaurant_id:
             if Restaurant.objects.filter(id=restaurant_id).exists():
-                queryset = Review.objects.filter(restaurant_id=restaurant_id)
+                queryset = Review.objects.filter(restaurant_id=restaurant_id).order_by('-id')
             else:
                 content = {'errors': 'restaurant id not exist'}
                 raise ValidationError(content)
         else:
-            queryset = Review.objects.all()
+            queryset = Review.objects.all().order_by('-id')
         return queryset
     # queryset = StoreFollower.objects.all()
     serializer_class = ReviewSerializer

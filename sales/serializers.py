@@ -4,7 +4,7 @@ from sales.models import Order
 from sales.models import OrderItem
 from sales.models import OrderItemMeta
 from food.serializers import JustFoodSerializer,FoodSerializer, AddonSerializer,FoodInfoSerializer
-from restaurant.serializers import JustRestaurantSerializer
+from restaurant.serializers import JustRestaurantSerializer,RestaurantInfoSerializer
 
 
 
@@ -49,7 +49,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
     # order_items = OrderItemSerializer(many=True, read_only=True)
     order_items = OrderItemDetailSerializer(many=True,read_only=True)
-    seller_id = JustRestaurantSerializer(read_only=True)
+    seller_id = RestaurantInfoSerializer(read_only=True)
 
     class Meta:
         # model = models.CustomUser
