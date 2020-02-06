@@ -37,6 +37,7 @@ class CountryFilter(SimpleListFilter):
 
 
 
+
 class FoodAdmin(admin.ModelAdmin):
     # date_hierarchy = 'pub_date'
     # list_display = ('full_name', 'langugae', 'grades', 'gender')
@@ -115,6 +116,7 @@ class FoodAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Food, FoodAdmin)
+
 
 
 # @admin.register(Customer)

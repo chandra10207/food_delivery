@@ -23,7 +23,7 @@ class OrderListApi(generics.ListCreateAPIView):
         status = params.get('order_status')
         if user_id and status:
             if User.objects.filter(id=user_id).exists():
-                queryset = Order.objects.filter(user_id=user_id).filter(order_status=status)
+                queryset = Order.objects.filter(user_id=user_id).filter(order_status=status).order_by('-id')
 
             else:
                 content = {'errors': 'user id not exist'}
@@ -31,19 +31,19 @@ class OrderListApi(generics.ListCreateAPIView):
 
         elif user_id:
             if User.objects.filter(id=user_id).exists():
-                queryset = Order.objects.filter(user_id=user_id)
+                queryset = Order.objects.filter(user_id=user_id).order_by('-id')
             else:
                 content = {'errors': 'user id not exist'}
                 raise ValidationError(content)
 
         elif status:
             if Order.objects.filter(order_status=status).exists():
-                queryset = Order.objects.filter(order_status=status)
+                queryset = Order.objects.filter(order_status=status).order_by('-id')
             else:
                 content = {'errors': 'Order status not exist'}
                 raise ValidationError(content)
         else:
-            queryset = Order.objects.all()
+            queryset = Order.objects.all().order_by('-id')
         return queryset
     serializer_class = OrderSerializer
 
@@ -61,12 +61,12 @@ class OrderItemListApi(generics.ListCreateAPIView):
         user_id = self.request.query_params.get('user_id')
         if user_id:
             if User.objects.filter(id=user_id).exists():
-                queryset = Order.objects.filter(user_id=user_id)
+                queryset = Order.objects.filter(user_id=user_id).order_by('-id')
             else:
                 content = {'errors': 'user id not exist'}
                 raise ValidationError(content)
         else:
-            queryset = OrderItem.objects.all()
+            queryset = OrderItem.objects.all().order_by('-id')
         return queryset
     serializer_class = OrderItemSerializer
 

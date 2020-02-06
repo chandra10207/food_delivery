@@ -1,6 +1,8 @@
 from django.contrib import admin
 from sales.models import Student, Order, OrderItem, OrderItemMeta
 from restaurant.models import Restaurant
+from  sales.models import OrderItem
+from django.contrib.auth.models import User
 
 def make_published(modeladmin, request, queryset):
     queryset.update(status='p')
@@ -24,6 +26,20 @@ class StudentAdmin(admin.ModelAdmin):
     #     serializers.serialize("json", queryset, stream=response)
     #     return response
 
+# class UserInline(admin.TabularInline):
+#     model = Restaurant
+
+# class CategoryAdmin(admin.ModelAdmin):
+#     inlines = [
+#         UserInline,
+#     ]
+
+
+class OrderItemline(admin.TabularInline):
+    model = OrderItem
+    readonly_fields = ('food_id', 'quantity', 'total_price','addons')
+    fields = ('food_id', 'quantity', 'total_price','addons')
+
 
 
 # @admin.register(Customer)
@@ -39,6 +55,9 @@ class OrderAdmin(admin.ModelAdmin):
     # autocomplete_fields = ['addons']
     # list_select_related = ['addons']
     list_per_page = 10
+    inlines = [
+        OrderItemline,
+    ]
 
     def get_form(self, request, obj=None, **kwargs):
         if request.user.is_superuser:

@@ -3,11 +3,17 @@ import json
 from django.contrib import admin
 from restaurant.models import Restaurant
 from Location.models import Address
+from food.models import Food
 # from django_google_maps import widgets as map_widgets
 # from django_google_maps import fields as map_fields
 # Register your models here.
 # admin.site.register(Restaurant)
 
+class FoodInline(admin.TabularInline):
+    model = Food
+# inlines = [
+#         FoodInline,
+#     ]
 # @admin.register(Customer)
 class RestaurantAdmin(admin.ModelAdmin):
     # formfield_overrides = {
@@ -20,6 +26,9 @@ class RestaurantAdmin(admin.ModelAdmin):
     autocomplete_fields = ['owner']
     list_select_related = ['owner']
     list_per_page = 10
+    inlines = [
+        FoodInline,
+    ]
 
     def get_form(self, request, obj=None, **kwargs):
         if request.user.is_superuser:

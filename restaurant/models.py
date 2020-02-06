@@ -5,6 +5,8 @@ from django import forms
 from Location.models import Address
 from django.utils.html import mark_safe
 from django.conf import settings
+from django.db.models import Avg
+from decimal import *
 
 class ImageUploadForm(forms.Form):
     """Image upload form."""
@@ -38,6 +40,12 @@ class Restaurant(models.Model):
     def restaurant_logo_tag(self):
         return mark_safe('<img class="user-image img-circle" src="%s%s" width="80" height="80" />' % (settings.MEDIA_URL , self.restaurant_logo))
     restaurant_logo_tag.short_description = 'Restaurant Logo'
+
+    # def average_rating(self):
+    #     # breakpoint()
+    #     avg =  self.reviews.aggregate(Avg('rating'))
+    #     breakpoint()
+    #     return Decimal(avg)
 
     def __str__(self):
         return self.name

@@ -26,3 +26,8 @@ class FoodSerializer(serializers.ModelSerializer):
         fields = ("id", "name", "description", "regular_price", "image", "restaurant", "owner",'addons')
 
 
+class FoodInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Food
+        fields = ("name", "description", "regular_price", "image", "restaurant")
