@@ -74,6 +74,7 @@ class Order(models.Model):
     order_status =  models.CharField(max_length=40, choices=ORDER_STATUS, default='processing')
     created_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(null=True, blank=True)
+    driver = models.ForeignKey(User, related_name='order_delivered', on_delete=models.CASCADE,null=True, blank=True)
     # addons = models.ManyToManyField(Addon, blank=True)
 
     def __str__(self):

@@ -44,7 +44,7 @@ class FoodAdmin(admin.ModelAdmin):
     # list_filter = (CountryFilter,)
     ordering = ['name']
     # list_filter = ('langugae', 'gender', 'grades')
-    # list_filter = ( 'restaurant', 'owner')
+    list_filter = ( 'restaurant',)
     save_as = True
     save_on_top = True
     # change_list_template = 'change_list_graph.html'
@@ -121,6 +121,7 @@ admin.site.register(Food, FoodAdmin)
 class AddonAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'price', 'created_by']
     search_fields = ['name']
+    list_filter = ( 'created_by',)
 
 
     # def get_readonly_fields(self, request, obj=None):
