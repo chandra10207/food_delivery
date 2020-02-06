@@ -11,8 +11,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         user_id = validated_data.get('user_id')
         restaurant_id = validated_data.get('restaurant_id')
         # breakpoint()
-        if Review.objects.filter(user_id=user_id).filter(store_id=restaurant_id).exists():
-            content = {'errors': ['Reviews and Rating already provides.']}
+        if Review.objects.filter(user_id=user_id).filter(restaurant_id=restaurant_id).exists():
+            content = {'errors': ['Reviews and Rating already exist for this user and restaurant.']}
             raise ValidationError(content)
         else:
             review = Review.objects.create(**validated_data)

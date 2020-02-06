@@ -18,7 +18,7 @@ ONE_TO_TEN_RATING_CHOICES = (
 )
 
 class Review (models.Model):
-    user_id = models.OneToOneField(User, related_name='reviews', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
     restaurant_id = models.ForeignKey(Restaurant, related_name='reviews', on_delete=models.CASCADE)
     rating = models.IntegerField(choices=ONE_TO_TEN_RATING_CHOICES, default=1)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -31,6 +31,7 @@ class Review (models.Model):
 
     class Meta:
         verbose_name = 'Review and Rating'
+        unique_together = ('user_id', 'restaurant_id',)
 
 
 

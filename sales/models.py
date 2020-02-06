@@ -81,6 +81,11 @@ class Order(models.Model):
         # return self.user_id.first_name
         return "Order: {} - User: {} - Total: ${}".format(str(self.id), self.user_id.first_name, self.order_total)
 
+    # def clean(self):
+    #     # Don't allow draft entries to have a pub_date.
+    #     if self.order_total < self.seller_total :
+    #         raise ValidationError({'pub_date': _('Draft entries may not have a publication date.')})
+
     class Meta:
         verbose_name = ('Order')
 
