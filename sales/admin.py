@@ -117,7 +117,7 @@ class OrderAdmin(admin.ModelAdmin):
             restaurant = Restaurant.objects.get(owner=request.user)
             return qs.filter(seller_id=restaurant.id)
 
-admin.site.register(Student, StudentAdmin)
+# admin.site.register(Student, StudentAdmin)
 admin.site.register(Order, OrderAdmin)
 # admin.site.register(Order)
 admin.site.register(OrderItem)
