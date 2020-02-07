@@ -82,6 +82,7 @@ class OrderItemline(admin.TabularInline):
 
 # @admin.register(Customer)
 class OrderAdmin(admin.ModelAdmin):
+    # change_list_template = 'change_list_graph.html'
     list_display = ['id','user_id', 'seller_total', 'seller_id',"order_status", 'driver_link','created_on', 'completed_on',
         # linkify(field_name="user_id"),
         # linkify(field_name="driver"),
@@ -102,9 +103,12 @@ class OrderAdmin(admin.ModelAdmin):
     ]
 
     def driver_link(self, order):
-        url = reverse("admin:auth_user_change", args=[order.driver.id])
-        link = '<a href="%s">%s</a>' % (url, order.driver.username)
-        return mark_safe(link)
+        if order.driver:
+            url = reverse("admin:auth_user_change", args=[order.driver.id])
+            link = '<a href="%s">%s</a>' % (url, order.driver.username)
+            return mark_safe(link)
+        else:
+            return "-"
     driver_link.short_description = 'Driver'
 
 
