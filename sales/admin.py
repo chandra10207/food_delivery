@@ -1,8 +1,12 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from sales.models import Student, Order, OrderItem, OrderItemMeta
 from restaurant.models import Restaurant
 from  sales.models import OrderItem
 from django.contrib.auth.models import User
+from django.utils.html import format_html
+from django.urls import reverse
 
 def make_published(modeladmin, request, queryset):
     queryset.update(status='p')
@@ -39,16 +43,54 @@ class OrderItemline(admin.TabularInline):
     model = OrderItem
     readonly_fields = ('food_id', 'quantity', 'total_price','addons')
     fields = ('food_id', 'quantity', 'total_price','addons')
+    raw_id_fields = ("food_id",)
 
+    def get_extra(self, request, obj=None, **kwargs):
+        extra = 0
+        # if obj:
+        #     return extra - obj.orderitem_set.count()
+        return extra
+
+    def has_delete_permission(self, request, obj=None, **kwargs):
+        if obj:
+            # return extra - obj.orderitem_set.count()
+            return False;
+
+    def has_add_permission(self, request, obj=None, **kwargs):
+        if obj:
+            # return extra - obj.orderitem_set.count()
+            return False;
+
+# def linkify(field_name):
+#     """
+#     Converts a foreign key value into clickable links.
+#
+#     If field_name is 'parent', link text will be str(obj.parent)
+#     Link will be admin url for the admin url for obj.parent.id:change
+#     """
+#     def _linkify(obj):
+#         app_label = obj._meta.app_label
+#         linked_obj = getattr(obj, field_name)
+#         model_name = linked_obj._meta.model_name
+#         view_name = f"admin:{app_label}_{model_name}_change"
+#         link_url = reverse(view_name, args=[linked_obj.id])
+#         return format_html('<a href="{}">{}</a>', link_url, linked_obj)
+#
+#     _linkify.short_description = field_name # Sets column name
+#     return _linkify
 
 
 # @admin.register(Customer)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id','user_id', 'seller_total', 'seller_id',"order_status", 'driver','created_on', 'completed_on']
+    list_display = ['id','user_id', 'seller_total', 'seller_id',"order_status", 'driver_link','created_on', 'completed_on',
+        # linkify(field_name="user_id"),
+        # linkify(field_name="driver"),
+                    ]
     search_fields = ['order_status']
-    readonly_fields = ['user_id','seller_id','seller_total']
-    normaluser_fields = ['user_id', 'seller_total', 'seller_id',"order_status", 'completed_on']
-    superuser_fields = ['order_total','driver']
+    readonly_fields = ['user_id','seller_id'
+        ,'seller_total']
+    normaluser_fields = ['user_id', 'seller_total', 'driver', "order_status", 'completed_on']
+    superuser_fields = ['order_total','seller_id',]
     list_filter = ('order_status', 'driver',)
     # search_fields = ['user_id']
     # autocomplete_fields = ['owner','restaurant','addons']
@@ -58,6 +100,19 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [
         OrderItemline,
     ]
+
+    def driver_link(self, order):
+        url = reverse("admin:auth_user_change", args=[order.driver.id])
+        link = '<a href="%s">%s</a>' % (url, order.driver.username)
+        return mark_safe(link)
+    driver_link.short_description = 'Driver'
+
+
+    def get_formsets_with_inlines(self, request, obj=None):
+        for inline in self.get_inline_instances(request, obj):
+            # hide MyInline in the add view
+            if not isinstance(inline, OrderItemline) or obj is not None:
+                yield inline.get_formset(request, obj), inline
 
     def get_form(self, request, obj=None, **kwargs):
         if request.user.is_superuser:
