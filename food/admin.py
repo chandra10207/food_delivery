@@ -51,7 +51,7 @@ class FoodAdmin(admin.ModelAdmin):
     # change_list_template = 'change_list_graph.html'
     # readonly_fields = ('owner','restaurant')
 
-    normaluser_fields = ['name','slug','description','regular_price','image','addons']
+    normaluser_fields = ['name','slug','description','regular_price','sale_price', 'image','addons']
     superuser_fields = ['owner','restaurant']
     search_fields = ['name']
     # autocomplete_fields = ['owner','restaurant','addons']

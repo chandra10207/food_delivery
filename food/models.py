@@ -34,7 +34,7 @@ class Food(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     # author = models.TextField()
     regular_price = models.DecimalField(max_digits=10, decimal_places=2)
-    # sale_price = models.DecimalField(max_digits=10, decimal_places=2)
+    sale_price = models.DecimalField(max_digits=10, decimal_places=2,null=True,blank=True)
     image = models.ImageField(upload_to='products/images/', default='products/images/None/no-img.jpg')
     # restaurant = models.ForeignKey(Restaurant, related_name='foods',editable=False, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(Restaurant, related_name='foods', on_delete=models.CASCADE)

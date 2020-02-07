@@ -26,9 +26,9 @@ class RestaurantAdmin(admin.ModelAdmin):
     autocomplete_fields = ['owner']
     list_select_related = ['owner']
     list_per_page = 10
-    inlines = [
-        FoodInline,
-    ]
+    # inlines = [
+    #     FoodInline,
+    # ]
 
     def get_form(self, request, obj=None, **kwargs):
         if request.user.is_superuser:

@@ -82,7 +82,7 @@ class OrderItemline(admin.TabularInline):
 
 # @admin.register(Customer)
 class OrderAdmin(admin.ModelAdmin):
-    # change_list_template = 'change_list_graph.html'
+    # change_list_template = 'change_form.html'
     list_display = ['id','user_id', 'seller_total', 'seller_id',"order_status", 'driver_link','created_on', 'completed_on',
         # linkify(field_name="user_id"),
         # linkify(field_name="driver"),
