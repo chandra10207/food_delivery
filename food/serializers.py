@@ -13,7 +13,7 @@ class JustFoodSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Food
-        fields = ("id", "name", "description", "regular_price", "image", "restaurant", "owner",'addons')
+        fields = ("id", "name", "description", "regular_price", "sale_price", "image", "restaurant", "owner",'addons')
 
 
 
@@ -23,11 +23,11 @@ class FoodSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Food
-        fields = ("id", "name", "description", "regular_price", "image", "restaurant", "owner",'addons')
+        fields = ("id", "name", "description", "regular_price", "sale_price", "image", "restaurant", "owner",'addons')
 
 
 class FoodInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Food
-        fields = ("name", "description", "regular_price", "image", "restaurant")
+        fields = ("name", "description", "regular_price", "sale_price", "image", "restaurant")

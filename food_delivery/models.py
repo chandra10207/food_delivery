@@ -11,6 +11,7 @@ class UserProfileInfo(models.Model):
     # firstname = models.CharField(max_length=50, null=True, blank=True)
     # lastname = models.CharField(max_length=50, null=True, blank=True)
     phone = models.CharField(max_length=50, null=True, blank=True)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     profile_pic = models.ImageField(upload_to='profile_pics',blank=True)
     address = models.OneToOneField(UserAddress, null=True, related_name='users', on_delete=models.CASCADE)
 

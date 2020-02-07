@@ -10,7 +10,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfileInfo
         # fields = "__all__"
-        fields = ['id', 'user', 'phone', 'address']
+        fields = ['id', 'user', 'phone', 'balance', 'address']
 
     # def create(self, validated_data):
     #     addressess_data = validated_data.pop('address')

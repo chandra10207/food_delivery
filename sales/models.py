@@ -70,6 +70,7 @@ class Order(models.Model):
     order_name = models.CharField('Order Name', max_length=50, null=True, blank=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2)
     seller_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    driver_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     seller_id = models.ForeignKey(Restaurant, related_name='orders', on_delete=models.CASCADE)
     order_status =  models.CharField(max_length=40, choices=ORDER_STATUS, default='processing')
     created_on = models.DateTimeField(auto_now_add=True)
