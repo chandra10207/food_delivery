@@ -8,7 +8,7 @@ from restaurant.models import Restaurant
 # Register your models here.
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('user_id', 'restaurant_id', 'rating', 'created_on', 'review_title')
+    list_display = ('user_id', 'restaurant_id', 'rating', 'review_title', 'review_text')
     autocomplete_fields = ['user_id', 'restaurant_id']
     # readonly_fields = ['user_id', 'follower_name', 'restaurant_name', 'restaurant_id']
 
