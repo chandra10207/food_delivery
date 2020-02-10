@@ -83,14 +83,14 @@ class OrderItemline(admin.TabularInline):
 # @admin.register(Customer)
 class OrderAdmin(admin.ModelAdmin):
     # change_list_template = 'change_form.html'
-    list_display = ['id','user_id', 'seller_total', 'seller_id',"order_status", 'driver','driver_phone','created_on', 'completed_on',
+    list_display = ['id','user_id', 'order_total', 'seller_id',"order_status", 'driver','driver_phone','created_on', 'completed_on',
         # linkify(field_name="user_id"),
         # linkify(field_name="driver"),
                     ]
     search_fields = ['order_status']
     readonly_fields = ['user_id','seller_id'
         ,'seller_total']
-    normaluser_fields = ['user_id', 'seller_total', 'driver', "order_status", 'completed_on']
+    normaluser_fields = ['user_id', 'order_total', 'driver', "order_status", 'completed_on']
     superuser_fields = ['order_total','seller_id',]
     list_filter = ('order_status',)
     # search_fields = ['user_id']
