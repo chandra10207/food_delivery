@@ -214,9 +214,22 @@
             <div class="small-box bg-success">
               <div class="inner">
                   {% if request.user.is_superuser %}
-    <h3>${{ total_sales.order_total__sum }}<sup style="font-size: 20px"></sup></h3>
+
+                      {% if total_sales.order_total__sum == None %}
+    <h3>${{ 0 }}<sup style="font-size: 20px"></sup></h3>
+        {% else %}
+  <h3>${{ total_sales.order_total__sum }}<sup style="font-size: 20px"></sup></h3>
+{% endif %}
+
 {% else %}
+
+                      {% if total_sales.seller_total__sum == None %}
+    <h3>${{ 0 }}<sup style="font-size: 20px"></sup></h3>
+        {% else %}
   <h3>${{ total_sales.seller_total__sum }}<sup style="font-size: 20px"></sup></h3>
+{% endif %}
+
+{#  <h3>${{ total_sales.seller_total__sum }}<sup style="font-size: 20px"></sup></h3>#}
 {% endif %}
 
 

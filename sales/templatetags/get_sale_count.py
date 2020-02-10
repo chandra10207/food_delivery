@@ -26,6 +26,10 @@ def get_sale_total(user):
     else:
         restaurant = Restaurant.objects.get(owner=user)
         order_total = Order.objects.filter(seller_id=restaurant.id).aggregate(Sum('seller_total'))
+        # breakpoint()
+        # if order_total['seller_total__sum'] is None:
+        #     order_total.seller_total__sum = 0
+        # breakpoint()
         # return order_total.seller_total__sum
     # breakpoint()
     return order_total

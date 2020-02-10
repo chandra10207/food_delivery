@@ -29,7 +29,7 @@ class UserForm(forms.ModelForm):
 class UserProfileInfoForm(forms.ModelForm):
      class Meta():
          model = UserProfileInfo
-         fields = ('profile_pic',)
+         fields = ('phone','profile_pic',)
 
 
 class RestaurantAddressForm(forms.ModelForm):

@@ -9,11 +9,36 @@ from food.models import Food
 # Register your models here.
 # admin.site.register(Restaurant)
 
-class FoodInline(admin.TabularInline):
-    model = Food
+# class FoodInline(admin.TabularInline):
+#     model = Food
 # inlines = [
 #         FoodInline,
 #     ]
+
+
+
+class FoodInline(admin.TabularInline):
+    model = Food
+    readonly_fields = ('name', 'regular_price', 'sale_price','description')
+    fields = ('name', 'regular_price', 'sale_price','description')
+    # raw_id_fields = ("food_id",)
+
+    def get_extra(self, request, obj=None, **kwargs):
+        extra = 0
+        # if obj:
+        #     return extra - obj.orderitem_set.count()
+        return extra
+
+    def has_delete_permission(self, request, obj=None, **kwargs):
+        if obj:
+            # return extra - obj.orderitem_set.count()
+            return False;
+
+    # def has_add_permission(self, request, obj=None, **kwargs):
+    #     if obj:
+    #         # return extra - obj.orderitem_set.count()
+    #         return False;
+
 # @admin.register(Customer)
 class RestaurantAdmin(admin.ModelAdmin):
     # formfield_overrides = {

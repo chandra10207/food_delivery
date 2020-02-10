@@ -50,6 +50,8 @@ def register(request):
                 print('found it')
                 profile.profile_pic = request.FILES['profile_pic']
             profile.save()
+            user.profile = profile
+            user.save()
             registered = True
             restaurant = restaurant_form.save(commit=False)
             restaurant.owner = user

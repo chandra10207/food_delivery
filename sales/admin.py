@@ -41,8 +41,8 @@ class StudentAdmin(admin.ModelAdmin):
 
 class OrderItemline(admin.TabularInline):
     model = OrderItem
-    readonly_fields = ('food_id', 'quantity', 'total_price','addons')
-    fields = ('food_id', 'quantity', 'total_price','addons')
+    readonly_fields = ('food_id', 'quantity', 'total_price',)
+    fields = ('food_id', 'quantity', 'total_price',)
     raw_id_fields = ("food_id",)
 
     def get_extra(self, request, obj=None, **kwargs):
@@ -83,7 +83,7 @@ class OrderItemline(admin.TabularInline):
 # @admin.register(Customer)
 class OrderAdmin(admin.ModelAdmin):
     # change_list_template = 'change_form.html'
-    list_display = ['id','user_id', 'seller_total', 'seller_id',"order_status", 'driver_link','created_on', 'completed_on',
+    list_display = ['id','user_id', 'seller_total', 'seller_id',"order_status", 'driver','driver_phone','created_on', 'completed_on',
         # linkify(field_name="user_id"),
         # linkify(field_name="driver"),
                     ]
@@ -92,7 +92,7 @@ class OrderAdmin(admin.ModelAdmin):
         ,'seller_total']
     normaluser_fields = ['user_id', 'seller_total', 'driver', "order_status", 'completed_on']
     superuser_fields = ['order_total','seller_id',]
-    list_filter = ('order_status', 'driver',)
+    list_filter = ('order_status',)
     # search_fields = ['user_id']
     # autocomplete_fields = ['owner','restaurant','addons']
     # autocomplete_fields = ['addons']
@@ -101,12 +101,22 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [
         OrderItemline,
     ]
+    # fieldsets = default_employee_fieldset
 
     def driver_link(self, order):
         if order.driver:
             url = reverse("admin:auth_user_change", args=[order.driver.id])
             link = '<a href="%s">%s</a>' % (url, order.driver.username)
             return mark_safe(link)
+        else:
+            return "-"
+    driver_link.short_description = 'Driver'
+
+    def driver_phone(self, order):
+        if order.driver:
+            phone = order.driver.profile.phone
+            # link = '<a href="%s">%s</a>' % (url, order.driver.username)
+            return phone
         else:
             return "-"
     driver_link.short_description = 'Driver'
@@ -179,5 +189,19 @@ class OrderAdmin(admin.ModelAdmin):
 # admin.site.register(Student, StudentAdmin)
 admin.site.register(Order, OrderAdmin)
 # admin.site.register(Order)
-admin.site.register(OrderItem)
+# admin.site.register(OrderItem)
+@admin.register(OrderItem)
+class StudentAdmin(admin.ModelAdmin):
+    # date_hierarchy = 'pub_date'
+    # list_display = ('full_name', 'langugae', 'grades', 'gender')
+    list_display = ('order_id', 'food_id', 'quantity','total_price')
+    ordering = ['order_id']
+    # list_filter = ('langugae', 'gender', 'grades')
+    list_filter = ( 'order_id',)
+    save_as = True
+    save_on_top = True
+    # change_list_template = 'change_list_graph.html'
+    # actions = [make_published]
+
+
 admin.site.register(OrderItemMeta)
