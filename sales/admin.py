@@ -91,7 +91,7 @@ class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ['user_id','seller_id'
         ,'seller_total']
     normaluser_fields = ['user_id', 'order_total', 'driver', "order_status", 'completed_on']
-    superuser_fields = ['seller_total','seller_id',]
+    superuser_fields = ['seller_id', ]
     list_filter = ('order_status',)
     # search_fields = ['user_id']
     # autocomplete_fields = ['owner','restaurant','addons']
