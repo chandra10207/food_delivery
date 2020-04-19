@@ -43,6 +43,7 @@ urlpatterns = [
     # url(r'^food_delivery/',include('food_delivery.urls')),
     # re_path("food_delivery/", include('food_delivery.urls')),
     url(r'^logout/$', views.user_logout, name='logout'),
+    path("stripe/", include("djstripe.urls", namespace="djstripe")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

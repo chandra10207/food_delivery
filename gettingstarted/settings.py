@@ -76,8 +76,16 @@ INSTALLED_APPS = [
     "commission",
     "tax",
     "dispute",
+    "djstripe",
 
 ]
+STRIPE_LIVE_SECRET_KEY = os.environ.get("STRIPE_LIVE_SECRET_KEY", "sk_live_IXZa5jTxiyiOglwAue5Y5JFW")
+STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", "pk_test_hRyI3DFnQ9SdUXHf5LVh7kzi")
+STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", "sk_test_Gtm8AHI0FVaVXmBIsKUSNB4E")
+STRIPE_LIVE_MODE = False  # Change to True in production
+DJSTRIPE_WEBHOOK_SECRET = "whsec_az1UrBkiB2tBBJhq9qh1wPrBq4DGAWbi"  # Get it from the section in the Stripe dashboard where you added the webhook endpoint
+
+
 
 # GOOGLE_API_KEY = 'AIzaSyCXTmnpb48jkPSW_BZxS2_mEM_kjZnewBE'
 GOOGLE_MAPS_API_KEY = 'AIzaSyDD4BVDPaXBoj87tuQviOckH4HauJWGhyU'
