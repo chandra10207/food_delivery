@@ -15,4 +15,4 @@ docutils
 whitenoise
 django-adminlte3
 #django-google-maps
-djstripe
+dj-stripe-2.3.0
